@@ -1,6 +1,3 @@
 {
-  "recommendations": [
-    "Vue.volar",
-    "arcanis.vscode-zipfs"
-  ]
+  "recommendations": ["Vue.volar", "arcanis.vscode-zipfs"]
 }
