@@ -1,9 +1,11 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+import Header from "./components/Header.vue";
 import Login from "./components/Login.vue";
-import Playback from "./components/Playback.vue";
-import { useParamsTokens } from "./composables/params-tokens";
+import Main from "./components/Main.vue";
+import Player from "./components/Player.vue";
+import useParamsTokens from "./composables/params-tokens";
 
 const { spotifyTokens } = useParamsTokens();
 </script>
@@ -11,6 +13,12 @@ const { spotifyTokens } = useParamsTokens();
 <template>
   <Login v-if="!spotifyTokens?.accessToken" />
   <template v-else>
-    <Playback :accessToken="spotifyTokens.accessToken" />
+    <div
+      class="h-full grid grid-flow-col grid-cols-[auto_1fr] grid-rows-[auto_1fr]"
+    >
+      <Header class="row-span-2 w-[250px]" />
+      <Player :accessToken="spotifyTokens.accessToken" class="h-[60px]" />
+      <Main class="overflow-y-scroll" />
+    </div>
   </template>
 </template>

@@ -8,7 +8,7 @@ export interface SpotifyAuthResp {
   tokenType: string | null;
 }
 
-export function useParamsTokens() {
+export default function useParamsTokens() {
   const spotifyTokens = ref<SpotifyAuthResp>();
 
   onMounted(() => {
