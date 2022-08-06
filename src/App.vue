@@ -16,8 +16,13 @@ const { spotifyTokens } = useParamsTokens();
     <div
       class="h-full grid grid-flow-col grid-cols-[auto_1fr] grid-rows-[auto_1fr]"
     >
-      <Header class="row-span-2 w-[250px]" />
-      <Player :accessToken="spotifyTokens.accessToken" class="h-[60px]" />
+      <Header
+        class="row-span-2 w-[250px] border-r border-base-300 bg-base-200"
+      />
+      <Player
+        :accessToken="spotifyTokens.accessToken"
+        class="h-[60px] border-b border-base-200 shadow-sm"
+      />
       <Main class="overflow-y-scroll" />
     </div>
   </template>

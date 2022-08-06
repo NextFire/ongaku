@@ -1,59 +1,45 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import usePlaybackSdk from "../composables/playback-sdk";
+import PlayerControls from "./PlayerControls.vue";
 
 const props = defineProps<{ accessToken: string }>();
 
-const spotifyPlayer = ref<Spotify.Player>();
+const player = ref<Spotify.Player>();
 
-const isPaused = ref(false);
-const isActive = ref(false);
-const currentTrack = ref({
-  name: "",
-  album: {
-    images: [{ url: "" }],
-  },
-  artists: [{ name: "" }],
-});
+const playerState = ref<Spotify.PlaybackState>();
 
 const { ready } = usePlaybackSdk();
 
 onMounted(async () => {
   await ready;
-  const player = new Spotify.Player({
+
+  const newPlayer = new Spotify.Player({
     name: "Ongaku",
     getOAuthToken: (cb) => {
       cb(props.accessToken);
     },
     volume: 0.1,
   });
-  spotifyPlayer.value = player;
-  player.connect();
+  player.value = newPlayer;
+
+  newPlayer.connect();
+
+  newPlayer.addListener("player_state_changed", (state) => {
+    playerState.value = state;
+  });
 });
 
 onUnmounted(() => {
-  spotifyPlayer.value?.disconnect();
-  spotifyPlayer.value = undefined;
-});
-
-watch(spotifyPlayer, (player) => {
-  if (player) {
-    player.addListener("player_state_changed", (state) => {
-      if (!state) {
-        return;
-      }
-
-      currentTrack.value = state.track_window.current_track;
-      isPaused.value = state.paused;
-
-      player.getCurrentState().then((state) => {
-        !state ? (isActive.value = false) : (isActive.value = true);
-      });
-    });
-  }
+  player.value?.disconnect();
+  player.value = undefined;
 });
 </script>
 
 <template>
-  <div></div>
+  <div class="grid grid-cols-[30%_40%_30%]">
+    <PlayerControls :player="player" :playback-state="playerState" />
+    <div></div>
+    <div></div>
+  </div>
 </template>

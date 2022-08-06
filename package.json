@@ -11,6 +11,11 @@
     "server": "node server"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-brands-svg-icons": "^6.1.2",
+    "@fortawesome/free-regular-svg-icons": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/vue-fontawesome": "latest-3",
     "@tauri-apps/api": "^1.0.2",
     "vue": "^3.2.37"
   },
