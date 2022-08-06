@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "server": "node server"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.2",
@@ -15,11 +16,16 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.0.5",
+    "@types/express": "^4",
+    "@types/request": "^2",
     "@types/spotify-web-playback-sdk": "^0.1.12",
     "@vitejs/plugin-vue": "^3.0.0",
     "autoprefixer": "^10.4.8",
     "daisyui": "^2.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
     "postcss": "^8.4.14",
+    "request": "^2.88.2",
     "tailwindcss": "^3.1.7",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
