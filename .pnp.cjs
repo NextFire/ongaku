@@ -35,6 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@tauri-apps/api", "npm:1.0.2"],\
             ["@tauri-apps/cli", "npm:1.0.5"],\
+            ["@types/spotify-web-playback-sdk", "npm:0.1.12"],\
             ["@vitejs/plugin-vue", "virtual:2bd3ce7fd5c59e65844d6dfecbfd8a904a49701373d9bbcc722e6ceaf063b143b61acf9d1fe16090cbc060b4682590b68a7538c9cb84ca1b1b29ad97721a39c7#npm:3.0.1"],\
             ["autoprefixer", "virtual:2bd3ce7fd5c59e65844d6dfecbfd8a904a49701373d9bbcc722e6ceaf063b143b61acf9d1fe16090cbc060b4682590b68a7538c9cb84ca1b1b29ad97721a39c7#npm:10.4.8"],\
             ["daisyui", "virtual:2bd3ce7fd5c59e65844d6dfecbfd8a904a49701373d9bbcc722e6ceaf063b143b61acf9d1fe16090cbc060b4682590b68a7538c9cb84ca1b1b29ad97721a39c7#npm:2.20.0"],\
@@ -263,6 +264,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@tootallnate-once-npm-2.0.0-e36cf4f140-ad87447820.zip/node_modules/@tootallnate/once/",\
           "packageDependencies": [\
             ["@tootallnate/once", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/spotify-web-playback-sdk", [\
+        ["npm:0.1.12", {\
+          "packageLocation": "./.yarn/cache/@types-spotify-web-playback-sdk-npm-0.1.12-32e177e334-3fb294921d.zip/node_modules/@types/spotify-web-playback-sdk/",\
+          "packageDependencies": [\
+            ["@types/spotify-web-playback-sdk", "npm:0.1.12"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1935,6 +1945,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ongaku", "workspace:."],\
             ["@tauri-apps/api", "npm:1.0.2"],\
             ["@tauri-apps/cli", "npm:1.0.5"],\
+            ["@types/spotify-web-playback-sdk", "npm:0.1.12"],\
             ["@vitejs/plugin-vue", "virtual:2bd3ce7fd5c59e65844d6dfecbfd8a904a49701373d9bbcc722e6ceaf063b143b61acf9d1fe16090cbc060b4682590b68a7538c9cb84ca1b1b29ad97721a39c7#npm:3.0.1"],\
             ["autoprefixer", "virtual:2bd3ce7fd5c59e65844d6dfecbfd8a904a49701373d9bbcc722e6ceaf063b143b61acf9d1fe16090cbc060b4682590b68a7538c9cb84ca1b1b29ad97721a39c7#npm:10.4.8"],\
             ["daisyui", "virtual:2bd3ce7fd5c59e65844d6dfecbfd8a904a49701373d9bbcc722e6ceaf063b143b61acf9d1fe16090cbc060b4682590b68a7538c9cb84ca1b1b29ad97721a39c7#npm:2.20.0"],\

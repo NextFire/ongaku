@@ -208,6 +208,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/spotify-web-playback-sdk@npm:^0.1.12":
+  version: 0.1.12
+  resolution: "@types/spotify-web-playback-sdk@npm:0.1.12"
+  checksum: 3fb294921db60865f32419ea22c1d3d37115f62be3cf359a8c63bcfce46cec4a844568b8212103d77f0aa5e1dae1ba76ada094e78521c042ac1ec1707c614fb1
+  languageName: node
+  linkType: hard
+
 "@vitejs/plugin-vue@npm:^3.0.0":
   version: 3.0.1
   resolution: "@vitejs/plugin-vue@npm:3.0.1"
@@ -1670,6 +1677,7 @@ __metadata:
   dependencies:
     "@tauri-apps/api": ^1.0.2
     "@tauri-apps/cli": ^1.0.5
+    "@types/spotify-web-playback-sdk": ^0.1.12
     "@vitejs/plugin-vue": ^3.0.0
     autoprefixer: ^10.4.8
     daisyui: ^2.20.0
