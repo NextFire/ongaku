@@ -13,9 +13,9 @@ import { ref, watch } from "vue";
 library.add(faVolumeLow, faVolumeHigh, faHouseSignal, faHouseLaptop);
 
 const props = defineProps<{
+  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
   player: Spotify.Player;
   playbackState?: Spotify.PlaybackState;
-  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
 }>();
 
 const volume = ref<number>(0.25);

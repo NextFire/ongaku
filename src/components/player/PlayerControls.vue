@@ -9,10 +9,12 @@ import {
   faShuffle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import SpotifyWebApi from "spotify-web-api-js";
 
 library.add(faBackward, faForward, faPause, faPlay, faRepeat, faShuffle);
 
 const props = defineProps<{
+  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
   player: Spotify.Player;
   playbackState?: Spotify.PlaybackState;
 }>();

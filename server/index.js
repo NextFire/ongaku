@@ -18,6 +18,7 @@ const BASE_URL = `${HOST}:${PORT}`;
 
 const LOGIN_ROUTE = "/auth/login";
 const CALLBACK_ROUTE = "/auth/callback";
+const REFRESH_ROUTE = "/auth/refresh";
 
 const TAURI_URL = process.env.TAURI_URL || "tauri://localhost";
 
@@ -36,6 +37,15 @@ function generateRandomString(length) {
 }
 
 const app = express();
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.get(LOGIN_ROUTE, (req, res) => {
   const scope = [
@@ -86,6 +96,30 @@ app.get(CALLBACK_ROUTE, (req, res) => {
       res.send(
         `<a href="${TAURI_URL}?${params.toString()}">Click here to continue</a>`
       );
+    }
+  });
+});
+
+app.get(REFRESH_ROUTE, (req, res) => {
+  const refresh_token = req.query.refresh_token;
+  const authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    form: {
+      grant_type: "refresh_token",
+      refresh_token: refresh_token,
+    },
+    headers: {
+      Authorization:
+        "Basic " +
+        Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64"),
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    json: true,
+  };
+
+  request.post(authOptions, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.json(body);
     }
   });
 });

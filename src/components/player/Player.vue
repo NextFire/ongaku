@@ -7,7 +7,7 @@ import PlayerMeta from "./PlayerMeta.vue";
 
 const props = defineProps<{
   spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
-  accessToken: string;
+  refreshAccessToken: () => Promise<string | undefined>;
 }>();
 
 if (!window.Spotify) {
@@ -27,40 +27,71 @@ if (!window.Spotify) {
 const player = ref(
   new Spotify.Player({
     name: "Ongaku",
-    getOAuthToken: (cb) => {
-      cb(props.accessToken);
+    getOAuthToken: async (cb) => {
+      cb((await props.refreshAccessToken())!);
     },
   })
 );
-await player.value.connect();
-
 const playerState = ref<Spotify.PlaybackState>();
+
+player.value.addListener("ready", ({ device_id }) => {
+  console.log("Connected with Device ID", device_id);
+});
+player.value.addListener("not_ready", ({ device_id }) => {
+  console.log("Device ID is not ready for playback", device_id);
+});
 player.value.addListener("player_state_changed", (state) => {
+  console.log("State changed", state);
   playerState.value = state;
 });
+player.value.addListener("autoplay_failed", () => {
+  console.log("Autoplay is not allowed by the browser autoplay rules");
+});
+player.value.on("initialization_error", ({ message }) => {
+  console.error("Failed to initialize", message);
+});
+player.value.on("authentication_error", ({ message }) => {
+  console.error("Failed to authenticate", message);
+});
+player.value.on("account_error", ({ message }) => {
+  console.error("Failed to validate Spotify account", message);
+});
+player.value.on("playback_error", ({ message }) => {
+  console.error("Failed to perform playback", message);
+});
+
+await player.value.connect();
 
 const refreshTimer = ref(
   setInterval(async () => {
     if (!(playerState.value?.paused ?? true)) {
-      playerState.value = (await player.value?.getCurrentState()) ?? undefined;
+      playerState.value = (await player.value.getCurrentState()) ?? undefined;
     }
   }, 1000)
 );
 
 onUnmounted(() => {
-  player.value.disconnect();
   clearInterval(refreshTimer.value);
+  player.value.disconnect();
 });
 </script>
 
 <template>
   <div class="p-1 grid grid-cols-[30%_40%_30%]">
-    <PlayerControls :player="player" :playback-state="playerState" />
-    <PlayerDisplay :player="player" :playback-state="playerState" />
-    <PlayerMeta
+    <PlayerControls
+      :spotify-api="spotifyApi"
       :player="player"
       :playback-state="playerState"
+    />
+    <PlayerDisplay
       :spotify-api="spotifyApi"
+      :player="player"
+      :playback-state="playerState"
+    />
+    <PlayerMeta
+      :spotify-api="spotifyApi"
+      :player="player"
+      :playback-state="playerState"
     />
   </div>
 </template>

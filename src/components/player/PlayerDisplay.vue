@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import SpotifyWebApi from "spotify-web-api-js";
 import { computed, ref } from "vue";
 
 const props = defineProps<{
+  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
   player: Spotify.Player;
   playbackState?: Spotify.PlaybackState;
 }>();
