@@ -13,12 +13,12 @@ const { spotifyTokens, refreshAccessToken } = useParamsTokens();
 
 const spotifyApi = ref(new SpotifyWebApi());
 watchEffect(() => {
-  spotifyApi.value.setAccessToken(spotifyTokens.value?.accessToken ?? null);
+  spotifyApi.value.setAccessToken(spotifyTokens.value?.access_token ?? null);
 });
 </script>
 
 <template>
-  <Login v-if="!spotifyTokens?.accessToken" />
+  <Login v-if="!spotifyTokens?.access_token" />
   <template v-else>
     <div
       class="h-full grid grid-flow-col grid-cols-[auto_1fr] grid-rows-[auto_1fr]"
