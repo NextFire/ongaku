@@ -9,39 +9,32 @@ import {
   faShuffle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { computed } from "@vue/reactivity";
 
 library.add(faBackward, faForward, faPause, faPlay, faRepeat, faShuffle);
 
 const props = defineProps<{
-  player?: Spotify.Player;
+  player: Spotify.Player;
   playbackState?: Spotify.PlaybackState;
 }>();
 
-const btnClass = computed(() => [
-  { "btn-disabled": !props.player },
-  "btn btn-sm btn-ghost",
-]);
-
 async function onBackward() {
-  const state = await props.player?.getCurrentState();
-  if (state?.position && state.position <= 3000) {
-    props.player?.previousTrack();
+  if (props.playbackState?.position && props.playbackState?.position <= 3000) {
+    props.player.previousTrack();
   } else {
-    props.player?.seek(0);
+    props.player.seek(0);
   }
 }
 </script>
 
 <template>
   <div class="flex items-center justify-center">
-    <button @click="" :class="btnClass">
+    <button @click="" class="btn btn-sm btn-ghost">
       <FontAwesomeIcon icon="fa-solid fa-shuffle" />
     </button>
-    <button @click="onBackward" :class="btnClass">
+    <button @click="onBackward" class="btn btn-sm btn-ghost">
       <FontAwesomeIcon icon="fa-solid fa-backward" class="fa-lg" />
     </button>
-    <button @click="player?.togglePlay" :class="btnClass">
+    <button @click="player.togglePlay" class="btn btn-sm btn-ghost">
       <FontAwesomeIcon
         :icon="[
           'fa-solid',
@@ -50,10 +43,10 @@ async function onBackward() {
         class="fa-2x"
       />
     </button>
-    <button @click="player?.nextTrack" :class="btnClass">
+    <button @click="player.nextTrack" class="btn btn-sm btn-ghost">
       <FontAwesomeIcon icon="fa-solid fa-forward" class="fa-lg" />
     </button>
-    <button @click="" :class="btnClass">
+    <button @click="" class="btn btn-sm btn-ghost">
       <FontAwesomeIcon icon="fa-solid fa-repeat" />
     </button>
   </div>
