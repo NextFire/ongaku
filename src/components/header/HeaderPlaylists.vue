@@ -6,7 +6,6 @@ const props = defineProps<{ spotifyApi: SpotifyWebApi.SpotifyWebApiJs }>();
 
 const resp = await props.spotifyApi.getUserPlaylists();
 const playlists = ref(resp.items);
-console.log(playlists.value);
 </script>
 
 <template>

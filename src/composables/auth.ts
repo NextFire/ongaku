@@ -10,6 +10,19 @@ export interface SpotifyAuthResp {
 
 export function useParamsTokens() {
   const spotifyTokens = useLocalStorage<SpotifyAuthResp>("spotifyTokens", {});
+  if (
+    ![
+      "streaming",
+      "user-read-email",
+      "user-read-private",
+      "user-read-playback-state",
+      "user-modify-playback-state",
+      "playlist-read-private",
+      "playlist-modify-private",
+    ].every((scope) => spotifyTokens.value.scope?.includes(scope))
+  ) {
+    spotifyTokens.value = {};
+  }
 
   const params = new URLSearchParams(window.location.search);
   spotifyTokens.value = {
@@ -28,6 +41,7 @@ export function useParamsTokens() {
     );
     const data: SpotifyAuthResp = await resp.json();
     spotifyTokens.value = { ...spotifyTokens.value, ...data };
+    console.log(data.scope);
     return data.access_token;
   };
 
