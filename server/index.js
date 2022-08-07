@@ -54,6 +54,8 @@ app.get(LOGIN_ROUTE, (req, res) => {
     "user-read-private",
     "user-read-playback-state",
     "user-modify-playback-state",
+    "playlist-read-private",
+    "playlist-modify-private",
   ].join(" ");
   const state = generateRandomString(16);
 

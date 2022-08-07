@@ -34,7 +34,8 @@ const progressPercent = computed(() => {
 
 <template>
   <div class="flex rounded bg-base-300">
-    <div class="h-full aspect-square">
+    <!-- TODO: replace h-[51px] with something more responsive -->
+    <div class="h-[51px] aspect-square">
       <img
         :src="playbackState?.track_window.current_track.album.images[0].url"
         class="object-contain"

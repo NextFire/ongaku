@@ -3,7 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import SpotifyWebApi from "spotify-web-api-js";
 import { ref, watchEffect } from "vue";
-import Header from "./components/Header.vue";
+import Header from "./components/header/Header.vue";
 import Login from "./components/Login.vue";
 import Main from "./components/Main.vue";
 import Player from "./components/player/Player.vue";
@@ -25,7 +25,7 @@ watchEffect(() => {
     >
       <Header
         :spotify-api="spotifyApi"
-        class="row-span-2 w-[250px] border-r border-base-300 bg-base-200"
+        class="row-span-2 w-[250px] border-r border-base-300 bg-base-200 overflow-y-scroll"
       />
       <Suspense>
         <Player
