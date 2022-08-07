@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import SpotifyWebApi from "spotify-web-api-js";
 import { onUnmounted, ref } from "vue";
 import PlayerControls from "./PlayerControls.vue";
 import PlayerDisplay from "./PlayerDisplay.vue";
 import PlayerMeta from "./PlayerMeta.vue";
 
-const props = defineProps<{ accessToken: string }>();
+const props = defineProps<{
+  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
+  accessToken: string;
+}>();
 
 if (!window.Spotify) {
   await new Promise<void>((resolve) => {
@@ -53,6 +57,10 @@ onUnmounted(() => {
   <div class="p-1 grid grid-cols-[30%_40%_30%]">
     <PlayerControls :player="player" :playback-state="playerState" />
     <PlayerDisplay :player="player" :playback-state="playerState" />
-    <PlayerMeta :player="player" :playback-state="playerState" />
+    <PlayerMeta
+      :player="player"
+      :playback-state="playerState"
+      :spotify-api="spotifyApi"
+    />
   </div>
 </template>

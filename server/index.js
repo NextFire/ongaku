@@ -38,7 +38,13 @@ function generateRandomString(length) {
 const app = express();
 
 app.get(LOGIN_ROUTE, (req, res) => {
-  const scope = ["streaming", "user-read-email", "user-read-private"].join(" ");
+  const scope = [
+    "streaming",
+    "user-read-email",
+    "user-read-private",
+    "user-read-playback-state",
+    "user-modify-playback-state",
+  ].join(" ");
   const state = generateRandomString(16);
 
   const auth_query_parameters = new URLSearchParams({
