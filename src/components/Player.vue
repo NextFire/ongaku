@@ -1,56 +1,58 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
-import usePlaybackSdk from "../composables/playback-sdk";
+import { onUnmounted, ref } from "vue";
 import PlayerControls from "./PlayerControls.vue";
 import PlayerDisplay from "./PlayerDisplay.vue";
 import PlayerMeta from "./PlayerMeta.vue";
 
 const props = defineProps<{ accessToken: string }>();
 
-const player = ref<Spotify.Player>();
-const playerState = ref<Spotify.PlaybackState>();
+if (!window.Spotify) {
+  await new Promise<void>((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://sdk.scdn.co/spotify-player.js";
+    script.async = true;
 
-const { ready } = usePlaybackSdk();
-const refreshTimer = ref<NodeJS.Timer>();
+    document.body.appendChild(script);
 
-onMounted(async () => {
-  await ready;
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      resolve();
+    };
+  });
+}
 
-  const newPlayer = new Spotify.Player({
+const player = ref(
+  new Spotify.Player({
     name: "Ongaku",
     getOAuthToken: (cb) => {
       cb(props.accessToken);
     },
-  });
-  player.value = newPlayer;
+  })
+);
+await player.value.connect();
 
-  newPlayer.connect();
-
-  newPlayer.addListener("player_state_changed", (state) => {
-    playerState.value = state;
-  });
-
-  refreshTimer.value = setInterval(async () => {
-    if (!(playerState.value?.paused ?? true)) {
-      playerState.value = (await player.value?.getCurrentState()) || undefined;
-    }
-  }, 1000);
+const playerState = ref<Spotify.PlaybackState>();
+player.value.addListener("player_state_changed", (state) => {
+  playerState.value = state;
 });
 
+const refreshTimer = ref(
+  setInterval(async () => {
+    if (!(playerState.value?.paused ?? true)) {
+      playerState.value = (await player.value?.getCurrentState()) ?? undefined;
+    }
+  }, 1000)
+);
+
 onUnmounted(() => {
-  player.value?.disconnect();
-  player.value = undefined;
+  player.value.disconnect();
   clearInterval(refreshTimer.value);
-  refreshTimer.value = undefined;
 });
 </script>
 
 <template>
-  <template v-if="player">
-    <div class="p-1 grid grid-cols-[30%_40%_30%]">
-      <PlayerControls :player="player" :playback-state="playerState" />
-      <PlayerDisplay :player="player" :playback-state="playerState" />
-      <PlayerMeta :player="player" :playback-state="playerState" />
-    </div>
-  </template>
+  <div class="p-1 grid grid-cols-[30%_40%_30%]">
+    <PlayerControls :player="player" :playback-state="playerState" />
+    <PlayerDisplay :player="player" :playback-state="playerState" />
+    <PlayerMeta :player="player" :playback-state="playerState" />
+  </div>
 </template>
