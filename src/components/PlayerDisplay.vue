@@ -23,6 +23,11 @@ function millisToMinutesAndSeconds(millis: number) {
   const seconds = Math.floor((millis % 60000) / 1000);
   return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
+
+const progressPercent = computed(() => {
+  if (!props.playbackState) return 0;
+  return (props.playbackState.position / props.playbackState.duration) * 100;
+});
 </script>
 
 <template>
@@ -52,12 +57,13 @@ function millisToMinutesAndSeconds(millis: number) {
           :max="playbackState?.duration"
           :value="playbackState?.position"
           @change="(e) => player.seek((e.target as HTMLInputElement).valueAsNumber)"
-          class="w-full h-1 align-top"
+          class="w-full slider"
+          :style="`--progress: ${progressPercent}%`"
         />
         <Transition>
           <div
             v-if="showTime"
-            class="relative -top-9 mx-2 flex place-content-between"
+            class="relative -top-5 mx-1 flex place-content-between text-[10px]"
           >
             <span>
               {{ millisToMinutesAndSeconds(playbackState?.position ?? 0) }}

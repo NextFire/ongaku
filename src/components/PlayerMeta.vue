@@ -21,7 +21,14 @@ watch([() => props.playbackState?.paused, volume], ([paused, volume]) => {
 <template>
   <div class="flex items-center justify-center gap-x-2">
     <FontAwesomeIcon icon="fa-solid fa-volume-low" class="fa-sm" />
-    <input type="range" max="1" step="0.01" v-model="volume" class="w-[75px]" />
+    <input
+      type="range"
+      max="1"
+      step="0.01"
+      v-model="volume"
+      class="w-20 slider"
+      :style="`--progress: ${volume * 100}%`"
+    />
     <FontAwesomeIcon icon="fa-solid fa-volume-high" class="fa-sm" />
   </div>
 </template>
