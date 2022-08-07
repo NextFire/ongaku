@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faListUl, faTableCells } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SpotifyWebApi from "spotify-web-api-js";
 import { ref } from "vue";
-
-library.add(faTableCells, faListUl);
 
 const props = defineProps<{ spotifyApi: SpotifyWebApi.SpotifyWebApiJs }>();
 
@@ -21,13 +16,13 @@ console.log(playlists.value);
     </li>
     <li>
       <a>
-        <FontAwesomeIcon icon="fa-solid fa-table-cells" />
+        <font-awesome-icon icon="fa-solid fa-table-cells" />
         All Playlists
       </a>
     </li>
     <li v-for="playlist in playlists" :key="playlist.id">
       <router-link :to="`/playlists/${playlist.uri}`">
-        <FontAwesomeIcon icon="fa-solid fa-list-ul" />
+        <font-awesome-icon icon="fa-solid fa-list-ul" />
         {{ playlist.name }}
       </router-link>
     </li>

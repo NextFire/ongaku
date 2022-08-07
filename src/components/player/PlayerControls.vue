@@ -1,18 +1,6 @@
 <script setup lang="ts">
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faBackward,
-  faForward,
-  faPause,
-  faPlay,
-  faRepeat,
-  faShuffle,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SpotifyWebApi from "spotify-web-api-js";
 import { ref, watchEffect } from "vue";
-
-library.add(faBackward, faForward, faPause, faPlay, faRepeat, faShuffle);
 
 const props = defineProps<{
   spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
@@ -53,13 +41,13 @@ watchEffect(() => {
       class="btn btn-sm"
       :class="{ 'btn-ghost': !isShuffling }"
     >
-      <FontAwesomeIcon icon="fa-solid fa-shuffle" />
+      <font-awesome-icon icon="fa-solid fa-shuffle" />
     </button>
     <button @click="onBackward" class="btn btn-sm btn-ghost">
-      <FontAwesomeIcon icon="fa-solid fa-backward" class="fa-lg" />
+      <font-awesome-icon icon="fa-solid fa-backward" class="fa-lg" />
     </button>
     <button @click="player.togglePlay" class="btn btn-sm btn-ghost">
-      <FontAwesomeIcon
+      <font-awesome-icon
         :icon="[
           'fa-solid',
           playbackState?.paused ?? true ? 'fa-play' : 'fa-pause',
@@ -68,7 +56,7 @@ watchEffect(() => {
       />
     </button>
     <button @click="player.nextTrack" class="btn btn-sm btn-ghost">
-      <FontAwesomeIcon icon="fa-solid fa-forward" class="fa-lg" />
+      <font-awesome-icon icon="fa-solid fa-forward" class="fa-lg" />
     </button>
     <button
       @click="repeatState = (repeatState + 1) % 3"
@@ -78,7 +66,7 @@ watchEffect(() => {
         'btn-secondary': repeatState === 2,
       }"
     >
-      <FontAwesomeIcon icon="fa-solid fa-repeat" />
+      <font-awesome-icon icon="fa-solid fa-repeat" />
       <span v-if="repeatState === 2">1</span>
     </button>
   </div>

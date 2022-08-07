@@ -1,15 +1,5 @@
 <script setup lang="ts">
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faClock,
-  faMicrophone,
-  faMusic,
-  faRecordVinyl,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SpotifyWebApi from "spotify-web-api-js";
-
-library.add(faClock, faMicrophone, faRecordVinyl, faMusic);
 
 defineProps<{ spotifyApi: SpotifyWebApi.SpotifyWebApiJs }>();
 </script>
@@ -21,25 +11,25 @@ defineProps<{ spotifyApi: SpotifyWebApi.SpotifyWebApiJs }>();
     </li>
     <li>
       <a>
-        <FontAwesomeIcon icon="fa-solid fa-clock" />
+        <font-awesome-icon icon="fa-solid fa-clock" />
         Recently Added
       </a>
     </li>
     <li>
       <a>
-        <FontAwesomeIcon icon="fa-solid fa-microphone" />
+        <font-awesome-icon icon="fa-solid fa-microphone" />
         Artists
       </a>
     </li>
     <li>
       <a>
-        <FontAwesomeIcon icon="fa-solid fa-record-vinyl" />
+        <font-awesome-icon icon="fa-solid fa-record-vinyl" />
         Albums
       </a>
     </li>
     <li>
       <a>
-        <FontAwesomeIcon icon="fa-solid fa-music" />
+        <font-awesome-icon icon="fa-solid fa-music" />
         Songs
       </a>
     </li>

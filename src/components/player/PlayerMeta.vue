@@ -1,16 +1,6 @@
 <script setup lang="ts">
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faHouseLaptop,
-  faHouseSignal,
-  faVolumeHigh,
-  faVolumeLow,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SpotifyWebApi from "spotify-web-api-js";
 import { ref, watch } from "vue";
-
-library.add(faVolumeLow, faVolumeHigh, faHouseSignal, faHouseLaptop);
 
 const props = defineProps<{
   spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
@@ -40,7 +30,7 @@ async function switchDevice(deviceId: string) {
 <template>
   <div class="flex items-center justify-center gap-x-6">
     <div class="flex items-center justify-center gap-x-2">
-      <FontAwesomeIcon icon="fa-solid fa-volume-low" class="fa-sm" />
+      <font-awesome-icon icon="fa-solid fa-volume-low" class="fa-sm" />
       <input
         type="range"
         max="1"
@@ -49,12 +39,12 @@ async function switchDevice(deviceId: string) {
         class="w-20 slider"
         :style="`--progress: ${volume * 100}%`"
       />
-      <FontAwesomeIcon icon="fa-solid fa-volume-high" class="fa-sm" />
+      <font-awesome-icon icon="fa-solid fa-volume-high" class="fa-sm" />
     </div>
 
     <div @mouseenter="refreshConn" class="dropdown dropdown-end dropdown-hover">
       <label tabindex="0" class="btn btn-sm btn-ghost">
-        <FontAwesomeIcon icon="fa-solid fa-house-signal" />
+        <font-awesome-icon icon="fa-solid fa-house-signal" />
       </label>
       <ul
         tabindex="0"
@@ -71,7 +61,7 @@ async function switchDevice(deviceId: string) {
           >
             <span>{{ device.name }}</span>
             <span class="text-sm space-x-2">
-              <FontAwesomeIcon icon="fa-solid fa-house-laptop" />
+              <font-awesome-icon icon="fa-solid fa-house-laptop" />
               <span>{{ device.type }}</span>
             </span>
           </a>
