@@ -4,7 +4,7 @@
 import Header from "./components/Header.vue";
 import Login from "./components/Login.vue";
 import Main from "./components/Main.vue";
-import Player from "./components/Player.vue";
+import Player from "./components/player/Player.vue";
 import { useParamsTokens } from "./composables/auth";
 
 const { spotifyTokens } = useParamsTokens();
