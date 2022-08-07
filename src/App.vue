@@ -5,7 +5,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { ref, watchEffect } from "vue";
 import Header from "./components/header/Header.vue";
 import Login from "./components/Login.vue";
-import Main from "./components/Main.vue";
+import Main from "./components/main/Main.vue";
 import Player from "./components/player/Player.vue";
 import { useParamsTokens } from "./composables/auth";
 

@@ -26,10 +26,10 @@ console.log(playlists.value);
       </a>
     </li>
     <li v-for="playlist in playlists" :key="playlist.id">
-      <a @click="spotifyApi.play({ context_uri: playlist.uri })">
+      <router-link :to="`/playlists/${playlist.uri}`">
         <FontAwesomeIcon icon="fa-solid fa-list-ul" />
         {{ playlist.name }}
-      </a>
+      </router-link>
     </li>
   </ul>
 </template>
