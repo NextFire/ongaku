@@ -6,6 +6,8 @@ const props = defineProps<{ spotifyApi: SpotifyWebApi.SpotifyWebApiJs }>();
 
 <template>
   <main>
-    <router-view :spotify-api="spotifyApi" />
+    <suspense>
+      <router-view :spotify-api="spotifyApi" />
+    </suspense>
   </main>
 </template>

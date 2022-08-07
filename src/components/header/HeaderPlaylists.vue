@@ -20,7 +20,7 @@ const playlists = ref(resp.items);
       </a>
     </li>
     <li v-for="playlist in playlists" :key="playlist.id">
-      <router-link :to="`/playlists/${playlist.uri}`">
+      <router-link :to="`/playlists/${playlist.id}`">
         <font-awesome-icon icon="fa-solid fa-list-ul" />
         {{ playlist.name }}
       </router-link>
