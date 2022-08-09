@@ -10,8 +10,17 @@ const route = useRoute();
 const resp = await props.spotifyApi.getPlaylist(route.params.id as string);
 const playlist = ref(resp);
 
-async function play() {
-  props.spotifyApi.play({ context_uri: playlist.value.uri });
+function millisToMinutesAndSeconds(millis: number) {
+  const minutes = Math.floor(millis / 60000);
+  const seconds = Math.floor((millis % 60000) / 1000);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+async function play(uri?: string) {
+  props.spotifyApi.play({
+    context_uri: playlist.value.uri,
+    offset: { uri },
+  });
 }
 
 watch(
@@ -24,18 +33,63 @@ watch(
 </script>
 
 <template>
-  <div>
-    <header>
-      <img :src="playlist.images[0].url" class="w-1/4" />
-      <div>
-        <h1>{{ playlist.name }}</h1>
+  <div class="flex flex-col gap-y-10">
+    <header class="grid grid-cols-[270px_auto] gap-x-10">
+      <img :src="playlist.images[0].url" class="rounded-lg" />
+      <div class="pt-20 flex flex-col">
+        <h1 class="font-bold text-2xl">{{ playlist.name }}</h1>
         <h2 class="uppercase">{{ playlist.tracks.total }} tracks</h2>
-        <p>{{ playlist.description }}</p>
-        <button @click="play()" class="btn space-x-2">
-          <font-awesome-icon icon="fa-solid fa-play" />
-          <span>Play</span>
-        </button>
+        <p class="grow">{{ playlist.description }}</p>
+        <div class="flex gap-5">
+          <button @click="play()" class="btn btn-sm btn-primary space-x-2 w-40">
+            <font-awesome-icon icon="fa-solid fa-play" />
+            <span>Play</span>
+          </button>
+          <button @click="play()" class="btn btn-sm btn-primary space-x-2 w-40">
+            <font-awesome-icon icon="fa-solid fa-shuffle" />
+            <span>Shuffle</span>
+          </button>
+        </div>
       </div>
     </header>
+
+    <table class="table table-zebra table-fixed w-full">
+      <thead>
+        <tr>
+          <th class="w-16"></th>
+          <th>Song</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th class="w-16">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(song, index) in playlist.tracks.items"
+          @click="play(song.track.uri)"
+          :key="index"
+          class="h-16 cursor-pointer"
+          :class="{ hover: !song.is_local }"
+        >
+          <td>
+            <img
+              :src="(song.track as SpotifyApi.TrackObjectFull).album?.images?.[0]?.url"
+            />
+          </td>
+          <td class="truncate">
+            {{(song.track as SpotifyApi.TrackObjectFull).name}}
+          </td>
+          <td class="truncate">
+            {{(song.track as SpotifyApi.TrackObjectFull).artists.map(a => a.name).join(', ')}}
+          </td>
+          <td class="truncate">
+            {{(song.track as SpotifyApi.TrackObjectFull).album.name}}
+          </td>
+          <td>
+            {{millisToMinutesAndSeconds((song.track as SpotifyApi.TrackObjectFull).duration_ms)}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
