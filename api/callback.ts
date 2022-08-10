@@ -25,11 +25,7 @@ export default (req: VercelRequest, res: VercelResponse) => {
   request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       const params = new URLSearchParams(body);
-      res.send(
-        `<a href="${
-          process.env.APP_URL
-        }?${params.toString()}">Click here to continue</a>`
-      );
+      res.redirect(`${process.env.APP_URL}?${params.toString()}`);
     }
   });
 };
