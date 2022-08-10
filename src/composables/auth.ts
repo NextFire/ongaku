@@ -37,7 +37,7 @@ export function useParamsTokens() {
 
   const refreshAccessToken = async () => {
     const resp = await fetch(
-      `http://localhost:8888/auth/refresh?refresh_token=${spotifyTokens.value?.refresh_token}`
+      `https://ongaku-nextfire.vercel.app/api/refresh?refresh_token=${spotifyTokens.value?.refresh_token}`
     );
     const data: SpotifyAuthResp = await resp.json();
     spotifyTokens.value = { ...spotifyTokens.value, ...data };
