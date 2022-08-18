@@ -6,7 +6,7 @@ export interface SpotifyAuthResp {
   token_type?: string;
 }
 
-export const useParamsTokens = () => {
+export const useAccessToken = () => {
   const spotifyTokens = useLocalStorage<SpotifyAuthResp>("spotifyTokens", {});
   if (
     ![
@@ -22,6 +22,8 @@ export const useParamsTokens = () => {
     spotifyTokens.value = {};
   }
 
+  const accessToken = computed(() => spotifyTokens.value.access_token);
+
   const params = new URLSearchParams(window.location.search);
   spotifyTokens.value = {
     access_token:
@@ -35,13 +37,13 @@ export const useParamsTokens = () => {
 
   const refreshAccessToken = async () => {
     const resp = await fetch(
-      `/api/refresh?refresh_token=${spotifyTokens.value?.refresh_token}`
+      `/api/refresh?refresh_token=${spotifyTokens.value.refresh_token}`
     );
     const data: SpotifyAuthResp = await resp.json();
     spotifyTokens.value = { ...spotifyTokens.value, ...data };
-    console.log(data.scope);
+    setTimeout(refreshAccessToken, parseInt(data.expires_in) * 1000);
     return data.access_token;
   };
 
-  return { spotifyTokens, refreshAccessToken };
+  return { accessToken, refreshAccessToken };
 };

@@ -3,60 +3,16 @@ import SpotifyWebApi from "spotify-web-api-js";
 
 const props = defineProps<{
   spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
-  refreshAccessToken: () => Promise<string | undefined>;
 }>();
 
-if (!window.Spotify) {
-  await new Promise<void>((resolve) => {
-    const script = document.createElement("script");
-    script.src = "https://sdk.scdn.co/spotify-player.js";
-    script.async = true;
+const player = usePlayer();
 
-    document.body.appendChild(script);
-
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      resolve();
-    };
-  });
-}
-
-const player = ref(
-  new Spotify.Player({
-    name: "Ongaku",
-    getOAuthToken: async (cb) => {
-      cb((await props.refreshAccessToken())!);
-    }
-  })
-);
 const playerState = ref<Spotify.PlaybackState>();
-
-player.value.addListener("ready", ({ device_id }) => {
-  console.log("Connected with Device ID", device_id);
+watchEffect(() => {
+  player.value?.addListener("player_state_changed", (state) => {
+    playerState.value = state;
+  });
 });
-player.value.addListener("not_ready", ({ device_id }) => {
-  console.log("Device ID is not ready for playback", device_id);
-});
-player.value.addListener("player_state_changed", (state) => {
-  console.log("State changed", state);
-  playerState.value = state;
-});
-player.value.addListener("autoplay_failed", () => {
-  console.log("Autoplay is not allowed by the browser autoplay rules");
-});
-player.value.on("initialization_error", ({ message }) => {
-  console.error("Failed to initialize", message);
-});
-player.value.on("authentication_error", ({ message }) => {
-  console.error("Failed to authenticate", message);
-});
-player.value.on("account_error", ({ message }) => {
-  console.error("Failed to validate Spotify account", message);
-});
-player.value.on("playback_error", ({ message }) => {
-  console.error("Failed to perform playback", message);
-});
-
-await player.value.connect();
 
 const refreshTimer = ref(
   setInterval(async () => {
@@ -65,10 +21,8 @@ const refreshTimer = ref(
     }
   }, 1000)
 );
-
 onUnmounted(() => {
   clearInterval(refreshTimer.value);
-  player.value.disconnect();
 });
 </script>
 
@@ -91,3 +45,38 @@ onUnmounted(() => {
     />
   </div>
 </template>
+
+<style>
+.slider[type="range"] {
+  display: block;
+  height: 100%;
+  appearance: none;
+  background-color: transparent;
+  cursor: pointer;
+  --playerScrubberFill: rgba(0, 0, 0, 0.5);
+  --playerScrubberTrack: rgba(0, 0, 0, 0.1);
+  @apply dark:[--playerScrubberFill:rgba(255,_255,_255,_0.6)] dark:[--playerScrubberTrack:rgba(255,_255,_255,_0.1)];
+}
+
+.slider[type="range"]::-ms-track {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 3px;
+  background-image: linear-gradient(
+    90deg,
+    var(--playerScrubberFill) var(--progress),
+    var(--playerScrubberTrack) var(--progress)
+  );
+}
+
+.slider[type="range"]::-webkit-slider-runnable-track {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 3px;
+  background-image: linear-gradient(
+    90deg,
+    var(--playerScrubberFill) var(--progress),
+    var(--playerScrubberTrack) var(--progress)
+  );
+}
+</style>

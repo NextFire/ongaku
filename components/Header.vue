@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import SpotifyWebApi from "spotify-web-api-js";
 
-defineProps<{
+const props = defineProps<{
   spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
-  connected: boolean;
 }>();
+
+const connected = computed(
+  () => props.spotifyApi.getAccessToken() !== undefined
+);
 </script>
 
 <template>
@@ -12,9 +15,7 @@ defineProps<{
     <nav>
       <div v-if="connected">
         <HeaderLibrary :spotify-api="spotifyApi" />
-        <Suspense>
-          <HeaderPlaylists :spotify-api="spotifyApi" />
-        </Suspense>
+        <HeaderPlaylists :spotify-api="spotifyApi" />
       </div>
     </nav>
   </header>
