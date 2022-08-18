@@ -1,6 +1,6 @@
 # ongaku
 
-**A Spotify web/desktop player using the [Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/) built with [Vue 3](https://vuejs.org), [Tailwind CSS](https://tailwindcss.com) + [daisy UI](https://daisyui.com) and [Tauri](https://tauri.app).**
+**A Spotify web player using the [Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/) built with [Nuxt 3](https://v3.nuxtjs.org/)/[Vue 3](https://vuejs.org) and [Tailwind CSS](https://tailwindcss.com) + [daisy UI](https://daisyui.com).**
 
 This is an experimental project to learn Vue 3 and whose goal is to create a Spotify player with the look and feel of the macOS Apple Music app.
 
