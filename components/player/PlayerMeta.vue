@@ -1,15 +1,17 @@
 <script setup lang="ts">
-const props = defineProps<{
-  player: Spotify.Player;
-  playbackState?: Spotify.PlaybackState;
-}>();
+const { spotifyApi } = useSpotifyApi();
+const state = await useSpotifyState();
 
-const spotifyApi = useApi();
+const volume = ref(state.value.device.volume_percent);
 
-const volume = ref<number>(0.25);
-
-watch([() => props.playbackState?.paused, volume], ([paused, volume]) => {
-  if (!(paused ?? true)) props.player.setVolume(volume);
+watch(
+  () => state.value.device.volume_percent,
+  (v) => {
+    volume.value = v;
+  }
+);
+watch(volume, (volume) => {
+  spotifyApi.value.setVolume(volume);
 });
 
 const spotConnDevices = ref<SpotifyApi.UserDevice[]>([]);
@@ -31,11 +33,10 @@ async function switchDevice(deviceId: string) {
       <font-awesome-icon icon="fa-solid fa-volume-low" class="fa-sm" />
       <input
         type="range"
-        max="1"
-        step="0.01"
+        max="100"
         v-model="volume"
         class="w-20 slider"
-        :style="`--progress: ${volume * 100}%`"
+        :style="`--progress: ${volume}%`"
       />
       <font-awesome-icon icon="fa-solid fa-volume-high" class="fa-sm" />
     </div>

@@ -1,30 +1,8 @@
-<script setup lang="ts">
-const player = usePlayer();
-
-const playerState = ref<Spotify.PlaybackState>();
-watchEffect(() => {
-  player.value?.addListener("player_state_changed", (state) => {
-    playerState.value = state;
-  });
-});
-
-const refreshTimer = ref(
-  setInterval(async () => {
-    if (!(playerState.value?.paused ?? true)) {
-      playerState.value = (await player.value.getCurrentState()) ?? undefined;
-    }
-  }, 1000)
-);
-onUnmounted(() => {
-  clearInterval(refreshTimer.value);
-});
-</script>
-
 <template>
   <div class="p-1 grid grid-cols-[30%_40%_30%]">
-    <PlayerControls :player="player" :playback-state="playerState" />
-    <PlayerDisplay :player="player" :playback-state="playerState" />
-    <PlayerMeta :player="player" :playback-state="playerState" />
+    <PlayerControls />
+    <PlayerDisplay />
+    <PlayerMeta />
   </div>
 </template>
 

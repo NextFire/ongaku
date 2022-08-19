@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { connected } = useToken();
+const { connected } = useSpotifyApi();
+useSpotifyPlayer();
 </script>
 
 <template>

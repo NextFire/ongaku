@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const spotifyApi = useApi();
-
+const { spotifyApi } = useSpotifyApi();
 const resp = await spotifyApi.value.getUserPlaylists();
 const playlists = ref(resp.items);
 </script>

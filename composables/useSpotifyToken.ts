@@ -7,7 +7,7 @@ export interface SpotifyAuthResp {
   lastRefresh?: number;
 }
 
-export const useToken = () => {
+export const useSpotifyToken = () => {
   const spotifyTokens = useLocalStorage<SpotifyAuthResp>("spotifyTokens", {});
   if (
     ![
@@ -18,14 +18,14 @@ export const useToken = () => {
       "user-modify-playback-state",
       "playlist-read-private",
       "playlist-modify-private"
-    ].every((scope) => spotifyTokens.value.scope?.includes(scope))
+    ].every((scope) => spotifyTokens.value.scope.includes(scope))
   ) {
     spotifyTokens.value = {};
   }
 
   const accessToken = computed(() => spotifyTokens.value.access_token);
 
-  const connected = computed(
+  const isValid = computed(
     () =>
       spotifyTokens.value.access_token &&
       spotifyTokens.value.lastRefresh +
@@ -59,9 +59,9 @@ export const useToken = () => {
     return data.access_token;
   };
 
-  if (!connected.value && spotifyTokens.value.refresh_token) {
+  if (!isValid.value && spotifyTokens.value.refresh_token) {
     refreshAccessToken();
   }
 
-  return { accessToken, refreshAccessToken, connected };
+  return { accessToken, refreshAccessToken };
 };

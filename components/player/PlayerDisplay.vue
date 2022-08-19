@@ -1,40 +1,32 @@
 <script setup lang="ts">
-const props = defineProps<{
-  player: Spotify.Player;
-  playbackState?: Spotify.PlaybackState;
-}>();
-
-const showTime = ref(false);
-
-const trackAlbum = computed(() => {
-  const artists = props.playbackState?.track_window.current_track.artists
-    .map((a) => a.name)
-    .join(", ");
-  const album = props.playbackState?.track_window.current_track.album.name;
-  return [artists, album]
-    .filter((v) => v !== undefined && v.length > 0)
-    .join(" — ");
-});
-
 function millisToMinutesAndSeconds(millis: number) {
   const minutes = Math.floor(millis / 60000);
   const seconds = Math.floor((millis % 60000) / 1000);
   return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
 
+const showTime = ref(false);
+
+const { spotifyApi } = useSpotifyApi();
+const state = await useSpotifyState();
+
+const trackAlbum = computed(() => {
+  const artists = state.value.item.artists.map((a) => a.name).join(", ");
+  const album = state.value.item.album.name;
+  return [artists, album]
+    .filter((v) => v !== undefined && v.length > 0)
+    .join(" — ");
+});
+
 const progressPercent = computed(() => {
-  if (!props.playbackState) return 0;
-  return (props.playbackState.position / props.playbackState.duration) * 100;
+  return (state.value.progress_ms / state.value.item.duration_ms) * 100;
 });
 </script>
 
 <template>
   <div class="flex rounded bg-base-300">
     <div class="h-full aspect-square">
-      <img
-        :src="playbackState?.track_window.current_track.album.images[0].url"
-        class="object-contain"
-      />
+      <img :src="state.item.album.images[0].url" class="object-contain" />
     </div>
     <div
       @mouseenter="showTime = true"
@@ -43,7 +35,7 @@ const progressPercent = computed(() => {
     >
       <div class="grid grid-rows-2 text-center m-2 text-xs">
         <span class="truncate self-end">
-          {{ playbackState?.track_window.current_track.name }}
+          {{ state.item.name }}
         </span>
         <span class="truncate self-start">
           {{ trackAlbum }}
@@ -52,9 +44,9 @@ const progressPercent = computed(() => {
       <div class="text-xs">
         <input
           type="range"
-          :max="playbackState?.duration"
-          :value="playbackState?.position"
-          @change="(e) => player.seek((e.target as HTMLInputElement).valueAsNumber)"
+          :max="state.item.duration_ms"
+          :value="state.progress_ms"
+          @change="(e) => {spotifyApi.seek((e.target as HTMLInputElement).valueAsNumber)}"
           class="w-full slider"
           :style="`--progress: ${progressPercent}%`"
         />
@@ -64,10 +56,10 @@ const progressPercent = computed(() => {
             class="relative -top-5 mx-1 flex place-content-between text-[10px]"
           >
             <span>
-              {{ millisToMinutesAndSeconds(playbackState?.position ?? 0) }}
+              {{ millisToMinutesAndSeconds(state.progress_ms) }}
             </span>
             <span>
-              {{ millisToMinutesAndSeconds(playbackState?.duration ?? 0) }}
+              {{ millisToMinutesAndSeconds(state.item.duration_ms) }}
             </span>
           </div>
         </Transition>

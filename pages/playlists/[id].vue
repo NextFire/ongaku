@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const spotifyApi = useApi();
+const { spotifyApi } = useSpotifyApi();
 
 const resp = await spotifyApi.value.getPlaylist(route.params.id as string);
 const playlist = ref(resp);
