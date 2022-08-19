@@ -30,7 +30,7 @@ watch(
 <template>
   <div class="flex flex-col gap-y-10">
     <header class="grid grid-cols-[270px_auto] gap-x-10">
-      <img :src="playlist.images[0].url" class="rounded-lg" />
+      <img :src="playlist.images[0]?.url" class="rounded-lg" />
       <div class="pt-20 flex flex-col">
         <h1 class="font-bold text-2xl">{{ playlist.name }}</h1>
         <h2 class="uppercase">{{ playlist.tracks.total }} tracks</h2>
@@ -63,12 +63,11 @@ watch(
           v-for="(song, index) in playlist.tracks.items"
           @click="play(song.track.uri)"
           :key="index"
-          class="h-16 cursor-pointer"
-          :class="{ hover: !song.is_local }"
+          class="h-16 hover cursor-pointer"
         >
           <td>
             <img
-              :src="(song.track as SpotifyApi.TrackObjectFull).album?.images?.[0]?.url"
+              :src="(song.track as SpotifyApi.TrackObjectFull).album.images[0]?.url"
             />
           </td>
           <td class="truncate">
