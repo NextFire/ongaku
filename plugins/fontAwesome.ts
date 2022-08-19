@@ -1,6 +1,7 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBackward,
+  faCirclePlay,
   faClock,
   faForward,
   faHouseLaptop,
@@ -14,6 +15,8 @@ import {
   faRepeat,
   faShuffle,
   faTableCells,
+  faTableCellsLarge,
+  faTowerBroadcast,
   faVolumeHigh,
   faVolumeLow
 } from "@fortawesome/free-solid-svg-icons";
@@ -22,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default defineNuxtPlugin((nuxtApp) => {
   library.add(
     faBackward,
+    faCirclePlay,
     faClock,
     faForward,
     faHouseLaptop,
@@ -35,6 +39,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     faRepeat,
     faShuffle,
     faTableCells,
+    faTableCellsLarge,
+    faTowerBroadcast,
     faVolumeHigh,
     faVolumeLow
   );
