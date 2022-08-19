@@ -11,14 +11,15 @@ export const useSpotifyToken = () => {
   const spotifyTokens = useLocalStorage<SpotifyAuthResp>("spotifyTokens", {});
   if (
     ![
-      "streaming",
-      "user-read-email",
-      "user-read-private",
-      "user-read-playback-state",
       "user-modify-playback-state",
+      "user-read-playback-state",
       "playlist-read-private",
-      "playlist-modify-private"
-    ].every((scope) => spotifyTokens.value.scope.includes(scope))
+      "playlist-modify-private",
+      "streaming",
+      "user-read-private",
+      "user-library-modify",
+      "user-library-read"
+    ].every((scope) => spotifyTokens.value.scope?.includes(scope))
   ) {
     spotifyTokens.value = {};
   }

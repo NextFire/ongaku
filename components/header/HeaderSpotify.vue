@@ -1,25 +1,25 @@
 <template>
-  <ul class="menu menu-compact p-2">
+  <div>
     <li class="menu-title">
       <span>Spotify</span>
     </li>
     <li>
-      <a>
+      <NuxtLink to="/" :class="{ active: $route.name === 'index' }">
         <font-awesome-icon icon="fa-solid fa-circle-play" />
-        Listen
-      </a>
+        Listen Now
+      </NuxtLink>
     </li>
     <li>
-      <a>
+      <NuxtLink to="/explore" :class="{ active: $route.name === 'explore' }">
         <font-awesome-icon icon="fa-solid fa-table-cells-large" />
         Explore
-      </a>
+      </NuxtLink>
     </li>
-    <li>
-      <a>
-        <font-awesome-icon icon="fa-solid fa-tower-broadcast" />
-        Radio
-      </a>
-    </li>
-  </ul>
+  </div>
 </template>
+
+<style scoped>
+.svg-inline--fa {
+  @apply w-[14px];
+}
+</style>

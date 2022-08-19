@@ -5,12 +5,12 @@ const { connected } = useSpotifyApi();
 <template>
   <header>
     <nav>
-      <HeaderSearch />
-      <HeaderSpotify />
-      <div v-if="connected">
-        <HeaderLibrary />
-        <HeaderPlaylists />
-      </div>
+      <HeaderSearch class="m-6 mb-3" />
+      <ul class="menu menu-compact p-3 gap-y-3">
+        <HeaderSpotify />
+        <HeaderLibrary v-if="connected" />
+        <HeaderPlaylists v-if="connected" />
+      </ul>
     </nav>
   </header>
 </template>

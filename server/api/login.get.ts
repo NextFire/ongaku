@@ -11,13 +11,14 @@ function generateRandomString(length: number) {
 
 export default defineEventHandler((event) => {
   const scope = [
-    "streaming",
-    "user-read-email",
-    "user-read-private",
-    "user-read-playback-state",
     "user-modify-playback-state",
+    "user-read-playback-state",
     "playlist-read-private",
-    "playlist-modify-private"
+    "playlist-modify-private",
+    "streaming",
+    "user-read-private",
+    "user-library-modify",
+    "user-library-read"
   ].join(" ");
   const state = generateRandomString(16);
 

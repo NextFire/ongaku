@@ -1,31 +1,37 @@
 <template>
-  <ul class="menu menu-compact p-2">
+  <div>
     <li class="menu-title">
       <span>Library</span>
     </li>
     <li>
-      <a>
-        <font-awesome-icon icon="fa-solid fa-clock" />
-        Recently Added
-      </a>
-    </li>
-    <li>
-      <a>
-        <font-awesome-icon icon="fa-solid fa-microphone" />
-        Artists
-      </a>
-    </li>
-    <li>
-      <a>
-        <font-awesome-icon icon="fa-solid fa-record-vinyl" />
-        Albums
-      </a>
-    </li>
-    <li>
-      <a>
+      <NuxtLink to="/songs" :class="{ active: $route.name === 'songs' }">
         <font-awesome-icon icon="fa-solid fa-music" />
         Songs
-      </a>
+      </NuxtLink>
     </li>
-  </ul>
+    <li>
+      <NuxtLink to="/podcasts" :class="{ active: $route.name === 'podcasts' }">
+        <font-awesome-icon icon="fa-solid fa-tower-broadcast" />
+        Podcasts
+      </NuxtLink>
+    </li>
+    <li>
+      <NuxtLink to="/artists" :class="{ active: $route.name === 'artists' }">
+        <font-awesome-icon icon="fa-solid fa-microphone" />
+        Artists
+      </NuxtLink>
+    </li>
+    <li>
+      <NuxtLink to="/albums" :class="{ active: $route.name === 'albums' }">
+        <font-awesome-icon icon="fa-solid fa-record-vinyl" />
+        Albums
+      </NuxtLink>
+    </li>
+  </div>
 </template>
+
+<style scoped>
+.svg-inline--fa {
+  @apply w-[14px];
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <form class="m-4 mb-2">
+  <form>
     <input
       type="text"
       placeholder="Search"

@@ -5,26 +5,36 @@ const playlists = ref(resp.items);
 </script>
 
 <template>
-  <ul class="menu menu-compact p-2">
+  <div>
     <li class="menu-title">
       <span>Playlists</span>
     </li>
     <li>
-      <a>
+      <NuxtLink
+        to="/playlists"
+        :class="{ active: $route.name === 'playlists' }"
+      >
         <font-awesome-icon icon="fa-solid fa-table-cells" />
         All Playlists
-      </a>
+      </NuxtLink>
     </li>
     <li v-for="playlist in playlists" :key="playlist.id">
       <NuxtLink
         :to="`/playlists/${playlist.id}`"
         :class="{
-          active: $route.name === 'playlist' && $route.params.id === playlist.id
+          active:
+            $route.name === 'playlists-id' && $route.params.id === playlist.id
         }"
       >
         <font-awesome-icon icon="fa-solid fa-list-ul" />
         {{ playlist.name }}
       </NuxtLink>
     </li>
-  </ul>
+  </div>
 </template>
+
+<style scoped>
+.svg-inline--fa {
+  @apply w-[14px];
+}
+</style>
