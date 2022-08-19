@@ -20,7 +20,6 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/vue-fontawesome": "latest-3",
-    "axios": "^0.27.2",
     "spotify-web-api-js": "^1.5.2"
   }
 }

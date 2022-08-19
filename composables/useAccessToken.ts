@@ -36,10 +36,9 @@ export const useAccessToken = () => {
   };
 
   const refreshAccessToken = async () => {
-    const resp = await fetch(
+    const data = await $fetch<SpotifyAuthResp>(
       `/api/refresh?refresh_token=${spotifyTokens.value.refresh_token}`
     );
-    const data: SpotifyAuthResp = await resp.json();
     spotifyTokens.value = { ...spotifyTokens.value, ...data };
     setTimeout(refreshAccessToken, parseInt(data.expires_in) * 1000);
     return data.access_token;

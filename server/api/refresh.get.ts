@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default defineEventHandler(async (event) => {
   const query = useQuery(event);
 
@@ -8,19 +6,16 @@ export default defineEventHandler(async (event) => {
     refresh_token: query.refresh_token as string
   });
 
-  const resp = await axios.post(
-    "https://accounts.spotify.com/api/token",
-    form,
-    {
-      headers: {
-        Authorization:
-          "Basic " +
-          Buffer.from(
-            `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`
-          ).toString("base64"),
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    }
-  );
-  return resp.data;
+  const data = await $fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: {
+      Authorization:
+        "Basic " +
+        Buffer.from(
+          `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`
+        ).toString("base64")
+    },
+    body: form
+  });
+  return data;
 });
