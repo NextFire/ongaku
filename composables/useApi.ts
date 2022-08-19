@@ -2,7 +2,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 
 const spotifyApi = ref(new SpotifyWebApi());
 
-const { accessToken } = useAccessToken();
+const { accessToken } = useToken();
 watchEffect(() => {
   const api = new SpotifyWebApi();
   api.setAccessToken(accessToken.value);

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import SpotifyWebApi from "spotify-web-api-js";
+const spotifyApi = useApi();
 
-const props = defineProps<{ spotifyApi: SpotifyWebApi.SpotifyWebApiJs }>();
-
-const resp = await props.spotifyApi.getUserPlaylists();
+const resp = await spotifyApi.value.getUserPlaylists();
 const playlists = ref(resp.items);
 </script>
 

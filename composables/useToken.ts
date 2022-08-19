@@ -6,7 +6,7 @@ export interface SpotifyAuthResp {
   token_type?: string;
 }
 
-export const useAccessToken = () => {
+export const useToken = () => {
   const spotifyTokens = useLocalStorage<SpotifyAuthResp>("spotifyTokens", {});
   if (
     ![
@@ -23,6 +23,7 @@ export const useAccessToken = () => {
   }
 
   const accessToken = computed(() => spotifyTokens.value.access_token);
+  const connected = computed(() => accessToken.value !== undefined);
 
   const params = new URLSearchParams(window.location.search);
   spotifyTokens.value = {
@@ -44,5 +45,5 @@ export const useAccessToken = () => {
     return data.access_token;
   };
 
-  return { accessToken, refreshAccessToken };
+  return { accessToken, refreshAccessToken, connected };
 };

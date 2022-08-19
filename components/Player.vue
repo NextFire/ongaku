@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import SpotifyWebApi from "spotify-web-api-js";
-
-const props = defineProps<{
-  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
-}>();
-
 const player = usePlayer();
 
 const playerState = ref<Spotify.PlaybackState>();
@@ -28,21 +22,9 @@ onUnmounted(() => {
 
 <template>
   <div class="p-1 grid grid-cols-[30%_40%_30%]">
-    <PlayerControls
-      :spotify-api="spotifyApi"
-      :player="player"
-      :playback-state="playerState"
-    />
-    <PlayerDisplay
-      :spotify-api="spotifyApi"
-      :player="player"
-      :playback-state="playerState"
-    />
-    <PlayerMeta
-      :spotify-api="spotifyApi"
-      :player="player"
-      :playback-state="playerState"
-    />
+    <PlayerControls :player="player" :playback-state="playerState" />
+    <PlayerDisplay :player="player" :playback-state="playerState" />
+    <PlayerMeta :player="player" :playback-state="playerState" />
   </div>
 </template>
 

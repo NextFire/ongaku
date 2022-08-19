@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import SpotifyWebApi from "spotify-web-api-js";
-
 const props = defineProps<{
-  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
   player: Spotify.Player;
   playbackState?: Spotify.PlaybackState;
 }>();
+
+const spotifyApi = useApi();
 
 const volume = ref<number>(0.25);
 
@@ -16,12 +15,12 @@ watch([() => props.playbackState?.paused, volume], ([paused, volume]) => {
 const spotConnDevices = ref<SpotifyApi.UserDevice[]>([]);
 
 async function refreshConn() {
-  const resp = await props.spotifyApi.getMyDevices();
+  const resp = await spotifyApi.value.getMyDevices();
   spotConnDevices.value = resp.devices;
 }
 
 async function switchDevice(deviceId: string) {
-  await props.spotifyApi.transferMyPlayback([deviceId]);
+  await spotifyApi.value.transferMyPlayback([deviceId]);
   refreshConn();
 }
 </script>

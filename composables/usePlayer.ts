@@ -1,7 +1,7 @@
 const player = ref<Spotify.Player>();
 
 export const usePlayer = () => {
-  const { refreshAccessToken } = useAccessToken();
+  const { refreshAccessToken } = useToken();
 
   if (!player.value && !window.Spotify) {
     const script = document.createElement("script");

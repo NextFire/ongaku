@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import SpotifyWebApi from "spotify-web-api-js";
-
 const props = defineProps<{
-  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
   player: Spotify.Player;
   playbackState?: Spotify.PlaybackState;
 }>();
+
+const spotifyApi = useApi();
 
 const isShuffling = ref(false);
 const repeatState = ref(0);
@@ -25,11 +24,11 @@ async function onBackward() {
 }
 
 watchEffect(() => {
-  props.spotifyApi.setShuffle(isShuffling.value);
+  spotifyApi.value.setShuffle(isShuffling.value);
 });
 
 watchEffect(() => {
-  props.spotifyApi.setRepeat(REPEAT_STATES[repeatState.value]);
+  spotifyApi.value.setRepeat(REPEAT_STATES[repeatState.value]);
 });
 </script>
 

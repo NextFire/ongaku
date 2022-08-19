@@ -1,5 +1,5 @@
 <template>
   <main class="overflow-y-scroll">
-    <slot />
+    <slot class="m-10" />
   </main>
 </template>
