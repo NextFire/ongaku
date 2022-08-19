@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { connected } = useSpotifyApi();
-useSpotifyPlayer();
 </script>
 
 <template>

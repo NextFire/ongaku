@@ -1,4 +1,5 @@
 const player = ref<Spotify.Player>();
+const deviceId = ref<string>();
 
 export const useSpotifyPlayer = () => {
   const { refreshAccessToken } = useSpotifyToken();
@@ -20,6 +21,7 @@ export const useSpotifyPlayer = () => {
 
       player.value.addListener("ready", ({ device_id }) => {
         console.log("Connected with Device ID", device_id);
+        deviceId.value = device_id;
       });
       player.value.addListener("not_ready", ({ device_id }) => {
         console.log("Device ID is not ready for playback", device_id);
@@ -51,5 +53,5 @@ export const useSpotifyPlayer = () => {
     player.value?.disconnect();
   });
 
-  return player;
+  return { player, deviceId };
 };

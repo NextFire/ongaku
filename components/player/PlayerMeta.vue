@@ -1,11 +1,12 @@
 <script setup lang="ts">
+const { player, deviceId } = useSpotifyPlayer();
 const { spotifyApi } = useSpotifyApi();
 const state = await useSpotifyState();
 
-const volume = ref(state.value.device.volume_percent);
+const volume = ref(state.value.device?.volume_percent ?? 100);
 
 watch(
-  () => state.value.device.volume_percent,
+  () => state.value.device?.volume_percent,
   (v) => {
     volume.value = v;
   }
@@ -21,8 +22,9 @@ async function refreshConn() {
   spotConnDevices.value = resp.devices;
 }
 
-async function switchDevice(deviceId: string) {
-  await spotifyApi.value.transferMyPlayback([deviceId]);
+async function switchDevice(id: string) {
+  if (id === deviceId.value) await player.value.activateElement();
+  await spotifyApi.value.transferMyPlayback([id]);
   refreshConn();
 }
 </script>
@@ -33,6 +35,7 @@ async function switchDevice(deviceId: string) {
       <font-awesome-icon icon="fa-solid fa-volume-low" class="fa-sm" />
       <input
         type="range"
+        min="0"
         max="100"
         v-model="volume"
         class="w-20 slider"
@@ -41,8 +44,15 @@ async function switchDevice(deviceId: string) {
       <font-awesome-icon icon="fa-solid fa-volume-high" class="fa-sm" />
     </div>
 
-    <div @mouseenter="refreshConn" class="dropdown dropdown-end dropdown-hover">
-      <label tabindex="0" class="btn btn-sm btn-ghost">
+    <div class="dropdown dropdown-end dropdown-hover">
+      <label
+        tabindex="0"
+        @mouseenter="refreshConn"
+        class="btn btn-sm"
+        :class="{
+          'btn-ghost': spotConnDevices.find((d) => d.id === deviceId)?.is_active
+        }"
+      >
         <font-awesome-icon icon="fa-solid fa-house-signal" />
       </label>
       <ul
