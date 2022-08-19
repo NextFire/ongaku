@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import SpotifyWebApi from "spotify-web-api-js";
-
-const props = defineProps<{ spotifyApi: SpotifyWebApi.SpotifyWebApiJs }>();
-
 const route = useRoute();
+const spotifyApi = useApi();
 
-const resp = await props.spotifyApi.getPlaylist(route.params.id as string);
+const resp = await spotifyApi.value.getPlaylist(route.params.id as string);
 const playlist = ref(resp);
 
 function millisToMinutesAndSeconds(millis: number) {
@@ -15,7 +12,7 @@ function millisToMinutesAndSeconds(millis: number) {
 }
 
 async function play(uri?: string) {
-  props.spotifyApi.play({
+  spotifyApi.value.play({
     context_uri: playlist.value.uri,
     offset: { uri }
   });
@@ -24,7 +21,7 @@ async function play(uri?: string) {
 watch(
   () => route.params.id,
   async (newId) => {
-    const resp = await props.spotifyApi.getPlaylist(newId as string);
+    const resp = await spotifyApi.value.getPlaylist(newId as string);
     playlist.value = resp;
   }
 );

@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import SpotifyWebApi from "spotify-web-api-js";
-
-const props = defineProps<{
-  spotifyApi: SpotifyWebApi.SpotifyWebApiJs;
-}>();
+const spotifyApi = useApi();
 
 const connected = computed(
-  () => props.spotifyApi.getAccessToken() !== undefined
+  () => spotifyApi.value.getAccessToken() !== undefined
 );
 </script>
 
