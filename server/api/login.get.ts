@@ -16,6 +16,7 @@ export default defineEventHandler((event) => {
     "playlist-read-private",
     "playlist-modify-private",
     "streaming",
+    "user-read-email",
     "user-read-private",
     "user-library-modify",
     "user-library-read"

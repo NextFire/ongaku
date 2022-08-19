@@ -22,4 +22,7 @@
 .svg-inline--fa {
   @apply w-[14px];
 }
+a:not(.active) .svg-inline--fa {
+  @apply text-primary;
+}
 </style>
