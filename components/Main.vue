@@ -1,5 +1,7 @@
 <template>
-  <main class="overflow-y-scroll">
-    <slot class="m-10" />
-  </main>
+  <div class="overflow-y-scroll">
+    <main class="m-10">
+      <slot />
+    </main>
+  </div>
 </template>
