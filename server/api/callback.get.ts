@@ -19,5 +19,8 @@ export default defineEventHandler(async (event) => {
     body: form
   });
   const params = new URLSearchParams(data as any);
-  return sendRedirect(event, `${process.env.APP_URL}?${params.toString()}`);
+  return sendRedirect(
+    event,
+    `${process.env.APP_URL}?callback&${params.toString()}`
+  );
 });
