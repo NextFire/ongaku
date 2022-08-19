@@ -16,7 +16,7 @@ const playlists = ref(resp.items);
       </a>
     </li>
     <li v-for="playlist in playlists" :key="playlist.id">
-      <router-link
+      <NuxtLink
         :to="`/playlists/${playlist.id}`"
         :class="{
           active: $route.name === 'playlist' && $route.params.id === playlist.id
@@ -24,7 +24,7 @@ const playlists = ref(resp.items);
       >
         <font-awesome-icon icon="fa-solid fa-list-ul" />
         {{ playlist.name }}
-      </router-link>
+      </NuxtLink>
     </li>
   </ul>
 </template>
