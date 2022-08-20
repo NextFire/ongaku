@@ -8,7 +8,7 @@ const { spotifyApi } = useSpotifyApi();
     <NuxtLink :to="`/album/${album.id}`" class="relative group">
       <img
         :src="album.images[0].url"
-        class="rounded drop-shadow-sm group-hover:brightness-75"
+        class="rounded drop-shadow group-hover:brightness-75"
       />
       <div
         class="hidden group-hover:flex absolute bottom-0 w-full p-4 justify-between"

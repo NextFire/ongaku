@@ -1,20 +1,16 @@
 <script setup lang="ts">
+import { millisToMinutesAndSeconds } from "~~/lib/utils";
+
 const route = useRoute();
 const { spotifyApi } = useSpotifyApi();
 
 const resp = await spotifyApi.value.getPlaylist(route.params.id as string);
 const playlist = ref(resp);
 
-function millisToMinutesAndSeconds(millis: number) {
-  const minutes = Math.floor(millis / 60000);
-  const seconds = Math.floor((millis % 60000) / 1000);
-  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-}
-
 async function play(uri?: string) {
   spotifyApi.value.play({
     context_uri: playlist.value.uri,
-    offset: { uri }
+    offset: uri ? { uri } : undefined
   });
 }
 

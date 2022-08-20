@@ -8,12 +8,13 @@ const { connected } = useSpotifyApi();
 
     <div class="drawer-content flex flex-col md:flex-col-reverse">
       <div class="flex-1 flex flex-col overflow-y-scroll">
-        <Main class="flex-1">
+        <main class="flex-1 m-4 md:m-10">
           <NuxtPage />
-        </Main>
+        </main>
+
         <label
           for="app-drawer"
-          class="lg:hidden w-fit sticky bottom-2 left-2 btn btn-secondary opacity-80 drawer-button z-10"
+          class="lg:hidden w-fit sticky bottom-2 left-2 btn btn-secondary opacity-80 drawer-button z-50"
         >
           <font-awesome-icon icon="fa-solid fa-bars" />
         </label>
