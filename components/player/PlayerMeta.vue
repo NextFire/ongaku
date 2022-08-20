@@ -48,12 +48,15 @@ async function switchDevice(id: string) {
       <label
         tabindex="0"
         @mouseenter="refreshConn"
-        class="btn btn-sm"
-        :class="{
-          'btn-ghost': spotConnDevices.find((d) => d.id === deviceId)?.is_active
-        }"
+        class="btn btn-sm btn-ghost"
       >
-        <font-awesome-icon icon="fa-solid fa-house-signal" />
+        <font-awesome-icon
+          icon="fa-solid fa-house-signal"
+          :class="{
+            'text-primary': !spotConnDevices.find((d) => d.id === deviceId)
+              ?.is_active
+          }"
+        />
       </label>
       <ul
         tabindex="0"

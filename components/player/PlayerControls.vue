@@ -55,12 +55,11 @@ async function onBackward() {
 
 <template>
   <div class="flex items-center justify-center">
-    <button
-      @click="shuffleState = !shuffleState"
-      class="btn btn-sm"
-      :class="{ 'btn-ghost': !shuffleState }"
-    >
-      <font-awesome-icon icon="fa-solid fa-shuffle" />
+    <button @click="shuffleState = !shuffleState" class="btn btn-sm btn-ghost">
+      <font-awesome-icon
+        icon="fa-solid fa-shuffle"
+        :class="{ 'text-primary': shuffleState }"
+      />
     </button>
     <button @click="onBackward" class="btn btn-sm btn-ghost">
       <font-awesome-icon icon="fa-solid fa-backward" class="fa-lg" />
@@ -76,14 +75,15 @@ async function onBackward() {
     </button>
     <button
       @click="repeatState = NEXT_REPEAT_STATE[repeatState]"
-      class="btn btn-sm space-x-1"
-      :class="{
-        'btn-ghost': repeatState === 'off',
-        'btn-secondary': repeatState === 'track'
-      }"
+      class="btn btn-sm btn-ghost space-x-1"
     >
-      <font-awesome-icon icon="fa-solid fa-repeat" />
-      <span v-if="repeatState === 'track'">1</span>
+      <font-awesome-icon
+        icon="fa-solid fa-repeat"
+        :class="{
+          'text-primary': repeatState !== 'off'
+        }"
+      />
+      <span v-if="repeatState === 'track'" class="text-primary">1</span>
     </button>
   </div>
 </template>

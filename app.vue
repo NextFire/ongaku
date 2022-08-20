@@ -11,7 +11,7 @@ const { connected } = useSpotifyApi();
         <NuxtPage />
       </Main>
       <div
-        class="sticky w-full flex items-center justify-center bg-primary-content border-t md:border-t-0 md:border-b border-base-200 shadow-sm"
+        class="sticky w-full flex items-center justify-center border-t md:border-t-0 md:border-b border-base-200 shadow-sm"
       >
         <label
           for="app-drawer"
@@ -28,7 +28,7 @@ const { connected } = useSpotifyApi();
 
     <div class="drawer-side">
       <label for="app-drawer" class="drawer-overlay" />
-      <Header class="w-60 border-r border-base-300 bg-base-200" />
+      <Header class="w-60 border-r border-base-300 bg-neutral" />
     </div>
   </div>
 </template>
