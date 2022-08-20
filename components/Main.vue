@@ -1,7 +1,7 @@
 <template>
-  <div class="overflow-y-scroll">
-    <main class="m-10">
+  <main>
+    <div class="m-4 md:m-10">
       <slot />
-    </main>
-  </div>
+    </div>
+  </main>
 </template>

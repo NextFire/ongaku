@@ -7,19 +7,22 @@ const { connected } = useSpotifyApi();
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
 
     <div class="drawer-content flex flex-col md:flex-col-reverse">
-      <Main class="-z-10">
-        <NuxtPage />
-      </Main>
-      <div
-        class="sticky w-full flex items-center justify-center border-t md:border-t-0 md:border-b border-base-200 shadow-sm"
-      >
+      <div class="flex-1 flex flex-col overflow-y-scroll">
+        <Main class="flex-1">
+          <NuxtPage />
+        </Main>
         <label
           for="app-drawer"
-          class="mx-2 btn btn-sm btn-ghost drawer-button lg:hidden"
+          class="lg:hidden w-fit sticky bottom-2 left-2 btn btn-secondary opacity-80 drawer-button z-10"
         >
           <font-awesome-icon icon="fa-solid fa-bars" />
         </label>
-        <div class="flex-1 p-1">
+      </div>
+
+      <div
+        class="sticky flex items-center justify-center border-t md:border-t-0 md:border-b border-base-200 shadow-sm"
+      >
+        <div class="flex-1 p-1 px-2">
           <Player v-if="connected" />
           <Login v-else />
         </div>
