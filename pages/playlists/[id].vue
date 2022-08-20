@@ -29,9 +29,9 @@ watch(
 
 <template>
   <div class="flex flex-col gap-y-10">
-    <header class="grid grid-cols-[270px_auto] gap-x-10">
+    <header class="grid md:grid-cols-[270px_auto] md:gap-x-10">
       <img :src="playlist.images[0]?.url" class="rounded-lg" />
-      <div class="pt-20 flex flex-col">
+      <div class="pt-4 md:pt-20 flex flex-col gap-1">
         <h1 class="font-bold text-2xl">{{ playlist.name }}</h1>
         <h2 class="uppercase">{{ playlist.tracks.total }} tracks</h2>
         <p class="grow">{{ playlist.description }}</p>

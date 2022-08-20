@@ -6,7 +6,7 @@ items.value = resp.items;
 </script>
 
 <template>
-  <div class="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
     <div
       v-for="item in items"
       :key="item.album.id"
@@ -15,7 +15,7 @@ items.value = resp.items;
     >
       <img
         :src="item.album.images[0].url"
-        class="rounded drop-shadow-sm border hover:brightness-75"
+        class="rounded drop-shadow-sm hover:brightness-75"
       />
       <div class="h-10 mt-1 flex flex-col text-xs">
         <span class="font-semibold">{{ item.album.name }}</span>

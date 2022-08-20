@@ -1,7 +1,7 @@
 <template>
-  <div class="p-1 grid grid-cols-[30%_40%_30%]">
+  <div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-[30%_40%_30%]">
     <PlayerControls />
-    <PlayerDisplay />
+    <PlayerDisplay class="h-14" />
     <PlayerMeta />
   </div>
 </template>

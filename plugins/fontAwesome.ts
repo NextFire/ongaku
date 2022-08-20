@@ -1,6 +1,7 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBackward,
+  faBars,
   faCirclePlay,
   faClock,
   faForward,
@@ -25,6 +26,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default defineNuxtPlugin((nuxtApp) => {
   library.add(
     faBackward,
+    faBars,
     faCirclePlay,
     faClock,
     faForward,
