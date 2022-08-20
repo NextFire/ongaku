@@ -31,7 +31,7 @@ const progressPercent = computed(() => {
     <div
       @mouseenter="showTime = true"
       @mouseleave="showTime = false"
-      class="grow grid grid-rows-[auto_4px] grid-flow-row"
+      class="grow grid grid-rows-[auto_4px] grid-flow-row relative"
     >
       <div class="grid grid-rows-2 text-center m-2 text-xs">
         <span class="truncate self-end">
@@ -41,29 +41,27 @@ const progressPercent = computed(() => {
           {{ trackAlbum }}
         </span>
       </div>
-      <div class="text-xs">
-        <input
-          type="range"
-          :max="state.item?.duration_ms"
-          :value="state.progress_ms"
-          @change="(e) => {spotifyApi.seek((e.target as HTMLInputElement).valueAsNumber)}"
-          class="w-full slider"
-          :style="`--progress: ${progressPercent}%`"
-        />
-        <Transition>
-          <div
-            v-if="showTime"
-            class="relative -top-5 mx-1 flex place-content-between text-[10px]"
-          >
-            <span>
-              {{ millisToMinutesAndSeconds(state.progress_ms) }}
-            </span>
-            <span>
-              {{ millisToMinutesAndSeconds(state.item?.duration_ms) }}
-            </span>
-          </div>
-        </Transition>
-      </div>
+      <input
+        type="range"
+        :max="state.item?.duration_ms"
+        :value="state.progress_ms"
+        @change="(e) => {spotifyApi.seek((e.target as HTMLInputElement).valueAsNumber)}"
+        class="w-full slider"
+        :style="`--progress: ${progressPercent}%`"
+      />
+      <Transition>
+        <div
+          v-if="showTime"
+          class="absolute bottom-1 w-full px-1 flex place-content-between text-[10px]"
+        >
+          <span>
+            {{ millisToMinutesAndSeconds(state.progress_ms) }}
+          </span>
+          <span>
+            {{ millisToMinutesAndSeconds(state.item?.duration_ms) }}
+          </span>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>

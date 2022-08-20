@@ -11,8 +11,8 @@ const playlists = ref(resp.items);
     </li>
     <li>
       <NuxtLink
-        to="/playlists"
-        :class="{ active: $route.name === 'playlists' }"
+        to="/collection/playlists"
+        :class="{ active: $route.name === 'collection-playlists' }"
       >
         <font-awesome-icon icon="fa-solid fa-table-cells" />
         All Playlists
@@ -20,10 +20,10 @@ const playlists = ref(resp.items);
     </li>
     <li v-for="playlist in playlists" :key="playlist.id">
       <NuxtLink
-        :to="`/playlists/${playlist.id}`"
+        :to="`/playlist/${playlist.id}`"
         :class="{
           active:
-            $route.name === 'playlists-id' && $route.params.id === playlist.id
+            $route.name === 'playlist-id' && $route.params.id === playlist.id
         }"
       >
         <font-awesome-icon icon="fa-solid fa-list-ul" />
