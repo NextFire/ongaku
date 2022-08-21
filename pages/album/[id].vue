@@ -16,7 +16,7 @@ async function play(uri?: string) {
 
 <template>
   <div class="flex flex-col gap-y-8 items-center">
-    <CollectionHeader type="album" :collection="album" />
+    <CollectionHeader type="album" :collection="album" :play="() => play()" />
 
     <table class="table table-zebra table-fixed w-full">
       <tbody>
@@ -25,17 +25,21 @@ async function play(uri?: string) {
           :key="track.id"
           class="hover flex group"
         >
-          <th @click="play(track.uri)" class="w-10">
-            <span class="text-secondary group-hover:hidden">
+          <th @click="play(track.uri)" class="relative">
+            <span class="absolute text-secondary group-hover:text-transparent">
               {{ track.track_number }}
             </span>
-            <span class="text-primary hidden group-hover:inline">
-              <font-awesome-icon icon="fa-solid fa-play" />
-            </span>
+            <font-awesome-icon
+              icon="fa-solid fa-play"
+              class="absolute text-transparent group-hover:text-primary"
+            />
           </th>
           <td class="flex-1 truncate">{{ track.name }}</td>
-          <td class="hidden group-hover:block">
-            <font-awesome-icon icon="fa-solid fa-plus" class="text-primary" />
+          <td>
+            <font-awesome-icon
+              icon="fa-solid fa-plus"
+              class="text-transparent group-hover:text-primary"
+            />
           </td>
           <td>{{ millisToMinutesAndSeconds(track.duration_ms) }}</td>
           <td>

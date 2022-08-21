@@ -13,6 +13,7 @@ export type PropsType = Readonly<AlbumProps | ShowProps | PlaylistProps>;
 export interface Props {
   type: PropsType["type"];
   collection: PropsType["collection"];
+  play: () => void;
 }
 
 const _props = defineProps<Props>();
@@ -34,7 +35,8 @@ const infos = computed(() => {
     case "album":
       return props.collection.release_date.split("-")[0];
     case "show":
-      return props.collection.episodes.length + " episodes";
+      // @ts-expect-error: wrong type definition
+      return props.collection.episodes.total + " episodes";
     case "playlist":
       return props.collection.tracks.total + " tracks";
   }
@@ -48,8 +50,6 @@ const description = computed(() => {
       return props.collection.description;
   }
 });
-
-const { spotifyApi } = useSpotifyApi();
 </script>
 
 <template>
@@ -79,14 +79,7 @@ const { spotifyApi } = useSpotifyApi();
 
       <div class="flex justify-between">
         <div class="grid sm:grid-cols-2 gap-x-4">
-          <button
-            @click="
-              spotifyApi.play({
-                context_uri: collection.uri
-              })
-            "
-            class="btn btn-sm btn-primary space-x-2"
-          >
+          <button @click="play()" class="btn btn-sm btn-primary space-x-2">
             <font-awesome-icon icon="fa-solid fa-play" />
             <span>Play</span>
           </button>

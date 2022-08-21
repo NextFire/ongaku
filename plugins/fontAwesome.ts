@@ -50,6 +50,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     faVolumeHigh,
     faVolumeLow
   );
-  // @ts-ignore: typing issue
+  // @ts-expect-error: typing issue
   nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
 });

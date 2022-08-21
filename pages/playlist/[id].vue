@@ -25,7 +25,11 @@ watch(
 
 <template>
   <div class="flex flex-col gap-y-8 items-center">
-    <CollectionHeader type="playlist" :collection="playlist" />
+    <CollectionHeader
+      type="playlist"
+      :collection="playlist"
+      :play="() => play()"
+    />
 
     <table class="table table-zebra table-fixed w-full">
       <thead>
