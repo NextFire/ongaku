@@ -24,22 +24,47 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-10">
-    <header class="grid md:grid-cols-[270px_auto] md:gap-x-10">
-      <img :src="playlist.images[0]?.url" class="rounded-lg" />
-      <div class="pt-4 md:pt-20 flex flex-col gap-1">
-        <h1 class="font-bold text-2xl">{{ playlist.name }}</h1>
-        <h2 class="uppercase">{{ playlist.tracks.total }} tracks</h2>
-        <p class="grow">{{ playlist.description }}</p>
-        <div class="flex gap-5">
-          <button @click="play()" class="btn btn-sm btn-primary space-x-2 w-40">
-            <font-awesome-icon icon="fa-solid fa-play" />
-            <span>Play</span>
-          </button>
-          <button @click="play()" class="btn btn-sm btn-primary space-x-2 w-40">
-            <font-awesome-icon icon="fa-solid fa-shuffle" />
-            <span>Shuffle</span>
-          </button>
+  <div class="flex flex-col gap-y-8 items-center">
+    <header
+      class="w-3/4 sm:w-full flex flex-col items-center sm:grid grid-rows-1 grid-cols-[1fr_3fr] gap-4 sm:gap-8"
+    >
+      <img
+        :src="playlist.images[0]?.url"
+        class="w-2/3 sm:w-full rounded-lg shadow"
+      />
+
+      <div class="w-full h-full flex flex-col justify-end gap-y-4 sm:gap-0">
+        <div
+          class="text-center sm:text-left flex-1 flex flex-col justify-center"
+        >
+          <h1 class="font-bold text-2xl">{{ playlist.name }}</h1>
+          <span class="text-sm uppercase text-secondary">
+            {{ playlist.tracks.total }} tracks
+          </span>
+          <p>
+            {{ playlist.description }}
+          </p>
+        </div>
+
+        <div class="flex justify-between">
+          <div class="grid sm:grid-cols-2 gap-x-4">
+            <button @click="play()" class="btn btn-sm btn-primary space-x-2">
+              <font-awesome-icon icon="fa-solid fa-play" />
+              <span>Play</span>
+            </button>
+            <button class="hidden sm:block btn btn-sm btn-primary space-x-2">
+              <font-awesome-icon icon="fa-solid fa-shuffle" />
+              <span>Shuffle</span>
+            </button>
+          </div>
+          <div class="flex gap-x-4">
+            <button class="btn btn-sm btn-circle space-x-2">
+              <font-awesome-icon
+                icon="fa-solid fa-ellipsis"
+                class="text-primary"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -67,16 +92,24 @@ watch(
             />
           </td>
           <td class="truncate">
-            {{(song.track as SpotifyApi.TrackObjectFull).name}}
+            {{ (song.track as SpotifyApi.TrackObjectFull).name }}
           </td>
           <td class="truncate">
-            {{(song.track as SpotifyApi.TrackObjectFull).artists.map(a => a.name).join(', ')}}
+            {{
+              (song.track as SpotifyApi.TrackObjectFull).artists
+                .map((a) => a.name)
+                .join(", ")
+            }}
           </td>
           <td class="truncate">
-            {{(song.track as SpotifyApi.TrackObjectFull).album.name}}
+            {{ (song.track as SpotifyApi.TrackObjectFull).album.name }}
           </td>
           <td>
-            {{millisToMinutesAndSeconds((song.track as SpotifyApi.TrackObjectFull).duration_ms)}}
+            {{
+              millisToMinutesAndSeconds(
+                (song.track as SpotifyApi.TrackObjectFull).duration_ms
+              )
+            }}
           </td>
         </tr>
       </tbody>

@@ -32,7 +32,7 @@ async function play(uri?: string) {
           <h2 class="text-2xl text-primary">
             {{ album.artists.map((a) => a.name).join(", ") }}
           </h2>
-          <span class="text-sm upercase text-secondary">
+          <span class="text-sm uppercase text-secondary">
             {{ album.release_date.split("-")[0] }}
           </span>
         </div>
