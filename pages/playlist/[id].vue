@@ -38,6 +38,9 @@ watch(
           class="text-center sm:text-left flex-1 flex flex-col justify-center"
         >
           <h1 class="font-bold text-2xl">{{ playlist.name }}</h1>
+          <h2 class="text-2xl text-primary">
+            {{ playlist.owner.display_name }}
+          </h2>
           <span class="text-sm uppercase text-secondary">
             {{ playlist.tracks.total }} tracks
           </span>

@@ -27,7 +27,7 @@ const progressPercent = computed(() => {
     <div
       @mouseenter="showTime = true"
       @mouseleave="showTime = false"
-      class="grow grid grid-rows-[auto_4px] grid-flow-row relative"
+      class="flex-1 grid grid-rows-[auto_4px] grid-flow-row relative"
     >
       <div class="grid grid-rows-2 text-center m-2 text-xs">
         <span class="truncate self-end">

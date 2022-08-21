@@ -1,17 +1,21 @@
 <script setup lang="ts">
+type GenericCollecProps<T extends { type: string }> = {
+  type: T["type"];
+  collection: T;
+};
+
+type AlbumProps = GenericCollecProps<SpotifyApi.AlbumObjectFull>;
+type ShowProps = GenericCollecProps<SpotifyApi.ShowObjectSimplified>;
+type PlaylistProps = GenericCollecProps<SpotifyApi.PlaylistObjectSimplified>;
+
+type Props = Readonly<AlbumProps | ShowProps | PlaylistProps>;
+
 const _props = defineProps<{
-  type: "album" | "show";
-  collection: SpotifyApi.AlbumObjectFull | SpotifyApi.ShowObjectSimplified;
+  type: Props["type"];
+  collection: Props["collection"];
 }>();
 
-type Props<T, U> = {
-  type: T;
-  collection: U;
-};
-type AlbumProps = Props<"album", SpotifyApi.AlbumObjectFull>;
-type ShowProps = Props<"show", SpotifyApi.ShowObjectSimplified>;
-
-const props = _props as Readonly<AlbumProps | ShowProps>;
+const props = _props as Props;
 
 const { spotifyApi } = useSpotifyApi();
 
@@ -21,13 +25,18 @@ const author = computed(() => {
       return props.collection.artists.map((a) => a.name).join(", ");
     case "show":
       return props.collection.publisher;
+    case "playlist":
+      return props.collection.owner.display_name;
   }
 });
 </script>
 
 <template>
-  <div>
-    <NuxtLink :to="`/${type}/${collection.id}`" class="group relative block">
+  <div class="flex flex-col">
+    <NuxtLink
+      :to="`/${type}/${collection.id}`"
+      class="flex-1 group relative block"
+    >
       <img
         :src="collection.images[0]?.url"
         class="rounded drop-shadow group-hover:brightness-75"
