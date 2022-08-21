@@ -5,7 +5,7 @@ const { spotifyApi } = useSpotifyApi();
 
 <template>
   <div>
-    <NuxtLink :to="`/album/${album.id}`" class="relative group">
+    <NuxtLink :to="`/album/${album.id}`" class="group relative block">
       <img
         :src="album.images[0].url"
         class="rounded drop-shadow group-hover:brightness-75"

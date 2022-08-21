@@ -22,7 +22,7 @@ const progressPercent = computed(() => {
 <template>
   <div class="flex rounded bg-base-300">
     <div class="h-full aspect-square">
-      <img :src="state.item?.album.images[0].url" class="object-contain" />
+      <img :src="state.item?.album.images[0]?.url" class="object-contain" />
     </div>
     <div
       @mouseenter="showTime = true"

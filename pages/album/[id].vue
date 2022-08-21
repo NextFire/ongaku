@@ -17,7 +17,7 @@ async function play(uri?: string) {
 <template>
   <div class="flex flex-col gap-y-8 items-center">
     <header
-      class="w-3/4 sm:w-full flex items-center flex-col sm:grid grid-cols-[1fr_3fr] gap-4 sm:gap-8"
+      class="w-3/4 sm:w-full flex flex-col items-center sm:grid grid-rows-1 grid-cols-[1fr_3fr] gap-4 sm:gap-8"
     >
       <img
         :src="album.images[0].url"
@@ -49,9 +49,8 @@ async function play(uri?: string) {
             </button>
           </div>
           <div class="flex gap-x-4">
-            <button class="btn btn-sm rounded-full space-x-2">
+            <button class="btn btn-sm btn-circle space-x-2">
               <font-awesome-icon icon="fa-solid fa-plus" />
-              <span>Add</span>
             </button>
             <button class="btn btn-sm btn-circle space-x-2">
               <font-awesome-icon icon="fa-solid fa-ellipsis" />
