@@ -46,33 +46,38 @@ watch(
           v-for="(song, index) in playlist.tracks.items"
           @click="play(song.track.uri)"
           :key="index"
-          class="h-16 hover cursor-pointer"
+          class="h-16 hover group"
         >
-          <td>
-            <img
-              :src="(song.track as SpotifyApi.TrackObjectFull).album.images[0]?.url"
-            />
-          </td>
-          <td class="truncate">
-            {{ (song.track as SpotifyApi.TrackObjectFull).name }}
-          </td>
-          <td class="truncate">
-            {{
-              (song.track as SpotifyApi.TrackObjectFull).artists
-                .map((a) => a.name)
-                .join(", ")
-            }}
-          </td>
-          <td class="truncate">
-            {{ (song.track as SpotifyApi.TrackObjectFull).album.name }}
-          </td>
-          <td>
-            {{
-              millisToMinutesAndSeconds(
-                (song.track as SpotifyApi.TrackObjectFull).duration_ms
-              )
-            }}
-          </td>
+          <template v-if="song.track.type === 'track'">
+            <td>
+              <div class="relative">
+                <img
+                  :src="song.track.album.images[0]?.url"
+                  class="rounded group-hover:brightness-75"
+                />
+                <div
+                  class="absolute bottom-0 w-full h-full hidden group-hover:flex justify-center items-center"
+                >
+                  <font-awesome-icon
+                    icon="fa-solid fa-play"
+                    class="w-2 text-neutral"
+                  />
+                </div>
+              </div>
+            </td>
+            <td class="truncate">
+              {{ song.track.name }}
+            </td>
+            <td class="truncate">
+              {{ song.track.artists.map((a) => a.name).join(", ") }}
+            </td>
+            <td class="truncate">
+              {{ song.track.album.name }}
+            </td>
+            <td>
+              {{ millisToMinutesAndSeconds(song.track.duration_ms) }}
+            </td>
+          </template>
         </tr>
       </tbody>
     </table>
