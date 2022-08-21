@@ -45,7 +45,8 @@ export const useSpotifyToken = () => {
       token_type: params.get("token_type"),
       lastRefresh: Date.now()
     };
-    window.history.pushState({}, "", window.location.pathname);
+    const save = useLocalStorage("hrefPreLogin", window.location.href);
+    window.location.href = save.value || "/";
   }
 
   const refreshAccessToken = async () => {
