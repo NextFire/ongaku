@@ -6,14 +6,6 @@ const showTime = ref(false);
 const { spotifyApi } = useSpotifyApi();
 const state = await useSpotifyState();
 
-const trackAlbum = computed(() => {
-  const artists = state.value.item?.artists.map((a) => a.name).join(", ");
-  const album = state.value.item?.album.name;
-  return [artists, album]
-    .filter((v) => v !== undefined && v.length > 0)
-    .join(" — ");
-});
-
 const progressPercent = computed(() => {
   return (state.value.progress_ms / state.value.item?.duration_ms) * 100;
 });
@@ -22,7 +14,10 @@ const progressPercent = computed(() => {
 <template>
   <div class="flex rounded bg-base-300">
     <div class="h-full aspect-square">
-      <img :src="state.item?.album.images[0]?.url" class="object-contain" />
+      <img
+        :src="state.item?.album.images[0]?.url"
+        class="object-contain hover:brightness-75 rounded-l"
+      />
     </div>
     <div
       @mouseenter="showTime = true"
@@ -34,7 +29,13 @@ const progressPercent = computed(() => {
           {{ state.item?.name }}
         </span>
         <span class="truncate self-start">
-          {{ trackAlbum }}
+          <span>
+            {{ state.item?.artists.map((a) => a.name).join(", ") }}
+          </span>
+          <span> – </span>
+          <NuxtLink :to="`/album/${state.item?.album.id}`">
+            {{ state.item?.album.name }}
+          </NuxtLink>
         </span>
       </div>
       <input
