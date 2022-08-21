@@ -1,3 +1,5 @@
+///  <reference types="@types/spotify-web-playback-sdk"/>
+
 const player = ref<Spotify.Player>();
 const deviceId = ref<string>();
 

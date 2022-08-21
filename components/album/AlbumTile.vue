@@ -26,6 +26,7 @@ const { spotifyApi } = useSpotifyApi();
         </button>
       </div>
     </NuxtLink>
+
     <div class="h-10 mt-1 flex flex-col text-xs">
       <NuxtLink :to="`/album/${album.id}`" class="font-semibold">
         {{ album.name }}

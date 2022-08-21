@@ -2,7 +2,6 @@
 useHead({
   link: [{ rel: "manifest", href: "/manifest.json" }]
 });
-
 const { connected } = useSpotifyApi();
 </script>
 
