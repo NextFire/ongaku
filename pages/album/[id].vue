@@ -29,10 +29,9 @@ async function play(uri?: string) {
             <span class="absolute text-secondary group-hover:text-transparent">
               {{ track.track_number }}
             </span>
-            <font-awesome-icon
-              icon="fa-solid fa-play"
-              class="absolute text-transparent group-hover:text-primary"
-            />
+            <span class="absolute text-transparent group-hover:text-primary">
+              <font-awesome-icon icon="fa-solid fa-play" />
+            </span>
           </th>
           <td class="flex-1 truncate">{{ track.name }}</td>
           <td>

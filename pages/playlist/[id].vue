@@ -44,13 +44,12 @@ watch(
       <tbody>
         <tr
           v-for="(song, index) in playlist.tracks.items"
-          @click="play(song.track.uri)"
           :key="index"
           class="h-16 hover group"
         >
           <template v-if="song.track.type === 'track'">
             <td>
-              <div class="relative">
+              <div @click="play(song.track.uri)" class="relative">
                 <img
                   :src="song.track.album.images[0]?.url"
                   class="rounded group-hover:brightness-75"
@@ -72,7 +71,9 @@ watch(
               {{ song.track.artists.map((a) => a.name).join(", ") }}
             </td>
             <td class="truncate">
-              {{ song.track.album.name }}
+              <NuxtLink :to="`/album/${song.track.album.id}`">
+                {{ song.track.album.name }}
+              </NuxtLink>
             </td>
             <td>
               {{ millisToMinutesAndSeconds(song.track.duration_ms) }}
