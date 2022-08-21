@@ -7,6 +7,11 @@ items.value = resp.items;
 
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-    <AlbumTile v-for="item in items" :key="item.album.id" :album="item.album" />
+    <CollectionTile
+      v-for="item in items"
+      :key="item.album.id"
+      type="album"
+      :collection="item.album"
+    />
   </div>
 </template>
