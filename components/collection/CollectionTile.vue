@@ -1,21 +1,22 @@
 <script setup lang="ts">
-type GenericCollecProps<T extends { type: string }> = {
+export type CollecProps<T extends { type: string }> = {
   type: T["type"];
   collection: T;
 };
 
-type AlbumProps = GenericCollecProps<SpotifyApi.AlbumObjectFull>;
-type ShowProps = GenericCollecProps<SpotifyApi.ShowObjectSimplified>;
-type PlaylistProps = GenericCollecProps<SpotifyApi.PlaylistObjectSimplified>;
+export type AlbumProps = CollecProps<SpotifyApi.AlbumObjectFull>;
+export type ShowProps = CollecProps<SpotifyApi.ShowObjectSimplified>;
+export type PlaylistProps = CollecProps<SpotifyApi.PlaylistObjectSimplified>;
 
-type Props = Readonly<AlbumProps | ShowProps | PlaylistProps>;
+export type PropsType = Readonly<AlbumProps | ShowProps | PlaylistProps>;
 
-const _props = defineProps<{
-  type: Props["type"];
-  collection: Props["collection"];
-}>();
+export interface Props {
+  type: PropsType["type"];
+  collection: PropsType["collection"];
+}
 
-const props = _props as Props;
+const _props = defineProps<Props>();
+const props = _props as PropsType;
 
 const { spotifyApi } = useSpotifyApi();
 
