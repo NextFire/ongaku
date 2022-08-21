@@ -52,6 +52,7 @@ export const useSpotifyToken = () => {
     const data = await $fetch<SpotifyAuthResp>(
       `/api/refresh?refresh_token=${spotifyTokens.value.refresh_token}`
     );
+    console.log("access_token", data.access_token);
     spotifyTokens.value = {
       ...spotifyTokens.value,
       ...data,
