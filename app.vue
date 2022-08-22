@@ -6,14 +6,12 @@ const { connected } = useSpotifyApi();
 </script>
 
 <template>
-  <div class="w-screen h-screen drawer drawer-mobile">
+  <div class="drawer drawer-mobile">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
 
     <div class="drawer-content flex flex-col md:flex-col-reverse">
-      <div class="flex-1 flex flex-col overflow-y-scroll">
-        <main class="flex-1 m-4 md:m-10">
-          <NuxtPage />
-        </main>
+      <main class="flex-1 overflow-scroll relative">
+        <NuxtPage />
 
         <label
           for="app-drawer"
@@ -21,15 +19,13 @@ const { connected } = useSpotifyApi();
         >
           <font-awesome-icon icon="fa-solid fa-bars" />
         </label>
-      </div>
+      </main>
 
       <div
-        class="sticky flex items-center justify-center border-t md:border-t-0 md:border-b border-base-200 shadow-sm"
+        class="p-1 px-2 border-t md:border-t-0 md:border-b border-base-200 shadow-sm"
       >
-        <div class="flex-1 p-1 px-2">
-          <Player v-if="connected" />
-          <Login v-else />
-        </div>
+        <Player v-if="connected" />
+        <Login v-else />
       </div>
     </div>
 

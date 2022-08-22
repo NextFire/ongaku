@@ -45,7 +45,6 @@ const infos = computed(() => {
 const description = computed(() => {
   switch (props.type) {
     case "show":
-      return props.collection.description;
     case "playlist":
       return props.collection.description;
   }

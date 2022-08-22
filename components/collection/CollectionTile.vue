@@ -4,7 +4,7 @@ export type CollecProps<T extends { type: string }> = {
   collection: T;
 };
 
-export type AlbumProps = CollecProps<SpotifyApi.AlbumObjectFull>;
+export type AlbumProps = CollecProps<SpotifyApi.AlbumObjectSimplified>;
 export type ShowProps = CollecProps<SpotifyApi.ShowObjectSimplified>;
 export type PlaylistProps = CollecProps<SpotifyApi.PlaylistObjectSimplified>;
 
@@ -23,6 +23,7 @@ const { spotifyApi } = useSpotifyApi();
 const author = computed(() => {
   switch (props.type) {
     case "album":
+      // @ts-expect-error: wrong type definition
       return props.collection.artists.map((a) => a.name).join(", ");
     case "show":
       return props.collection.publisher;

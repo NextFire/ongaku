@@ -13,6 +13,8 @@ export const useSpotifyToken = () => {
     ![
       "user-modify-playback-state",
       "user-read-playback-state",
+      "user-follow-modify",
+      "user-follow-read",
       "playlist-read-private",
       "playlist-modify-private",
       "streaming",

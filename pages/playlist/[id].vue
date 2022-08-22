@@ -24,7 +24,7 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-8 items-center">
+  <div class="m-4 md:m-8 flex flex-col gap-y-8 items-center">
     <CollectionHeader
       type="playlist"
       :collection="playlist"

@@ -1,17 +1,17 @@
 <script setup lang="ts">
 const { spotifyApi } = useSpotifyApi();
-const items = ref<SpotifyApi.PlaylistObjectSimplified[]>([]);
+const playlists = ref<SpotifyApi.PlaylistObjectSimplified[]>([]);
 const resp = await spotifyApi.value.getUserPlaylists();
-items.value = resp.items;
+playlists.value = resp.items;
 </script>
 
 <template>
-  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+  <div class="m-4 md:m-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
     <CollectionTile
-      v-for="item in items"
-      :key="item.id"
+      v-for="playlist in playlists"
+      :key="playlist.id"
       type="playlist"
-      :collection="item"
+      :collection="playlist"
     />
   </div>
 </template>

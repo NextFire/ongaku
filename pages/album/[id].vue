@@ -15,7 +15,7 @@ async function play(uri?: string) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-8 items-center">
+  <div class="m-4 md:m-8 flex flex-col gap-y-8 items-center">
     <CollectionHeader type="album" :collection="album" :play="() => play()" />
 
     <table class="table table-zebra table-fixed w-full">
