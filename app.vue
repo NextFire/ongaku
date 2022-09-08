@@ -6,7 +6,7 @@ const { connected } = useSpotifyApi();
 </script>
 
 <template>
-  <div class="drawer drawer-mobile">
+  <div class="drawer max-h-screen drawer-mobile">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
 
     <div class="drawer-content flex flex-col md:flex-col-reverse">
