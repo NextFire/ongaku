@@ -12,7 +12,7 @@
     "@vueuse/core": "^9.1.0",
     "@vueuse/nuxt": "^9.1.0",
     "daisyui": "^2.24.0",
-    "nuxt": "3.0.0-rc.8"
+    "nuxt": "3.4.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
