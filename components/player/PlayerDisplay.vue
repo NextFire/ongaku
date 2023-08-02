@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { millisToMinutesAndSeconds } from "~~/lib/utils";
-
 const showTime = ref(false);
 
 const { spotifyApi } = useSpotifyApi();
@@ -25,9 +23,12 @@ const progressPercent = computed(() => {
       class="flex-1 grid grid-rows-[auto_4px] grid-flow-row relative"
     >
       <div class="grid grid-rows-2 text-center m-2 text-xs">
-        <span class="truncate self-end">
+        <NuxtLink
+          :to="`/album/${state.item?.album.id}#${state.item?.id}`"
+          class="truncate self-end"
+        >
           {{ state.item?.name }}
-        </span>
+        </NuxtLink>
         <span class="truncate self-start">
           <span>
             {{ state.item?.artists.map((a) => a.name).join(", ") }}

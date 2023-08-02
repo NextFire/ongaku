@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { millisToMinutesAndSeconds } from "~~/lib/utils";
-
 const route = useRoute();
 const { spotifyApi } = useSpotifyApi();
 
@@ -23,6 +21,7 @@ async function play(uri?: string) {
         <tr
           v-for="track in album.tracks.items"
           :key="track.id"
+          :id="track.id"
           class="hover flex group"
         >
           <th @click="play(track.uri)" class="relative">

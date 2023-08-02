@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { millisToMinutesAndSeconds } from "~~/lib/utils";
-
 const route = useRoute();
 const { spotifyApi } = useSpotifyApi();
 

@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const query = useQuery(event);
+  const query = getQuery(event);
 
   const form = new URLSearchParams({
     grant_type: "refresh_token",
