@@ -11,7 +11,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "6.11.4",
-    "@types/node": "20.11.27",
+    "@types/node": "20.11.28",
     "@types/spotify-web-playback-sdk": "0.1.19",
     "@vueuse/core": "10.9.0",
     "@vueuse/nuxt": "10.9.0",
